@@ -34,22 +34,39 @@ const Home: NextPage = () => {
     <>
       <Layout title={"Home - App"}>
         <Box className="index__container">
-          <Box className="index__landing">
-            <Typography variant="h2" sx={{ fontWeight: "bold" }}>
-              App - CRUD
+          <Box className="index__landing" id="landing">
+            <Typography
+              variant="h2"
+              sx={{ fontWeight: "bold", paddingBottom: "0.5em" }}
+              textAlign={"center"}
+            >
+              PENSAMIENTO COMPUTACIONAL
             </Typography>
-            <Typography variant="h5">
-              The best site to manage, analize and predict your data.
+            <Typography
+              variant="overline"
+              fontWeight={"400"}
+              fontSize={"1em"}
+              textAlign={"justify"}
+            >
+              En esta página encontrarás todos los fundamentos necesarios para
+              comprender acerca del pensamiento computacional y la importancia
+              del mismo en todos los ámbitos de la ciencia y la ingeniería.
             </Typography>
             <Box className="index__options">
-              <Button onClick={handleNotification}> Learn more </Button>
-              <Divider orientation="vertical" flexItem />
               <Button variant="contained"> About </Button>
+              <Divider orientation="vertical" flexItem />
+              <Button onClick={handleNotification}> Learn more </Button>
             </Box>
           </Box>
-          {/* <Box className="index__landing">
-            <h1>Hola</h1>
-          </Box> */}
+          <Box className="index__sub-container" id="nosotros">
+            <Box className="index__nosotros">NOSOTROS</Box>
+          </Box>
+          <Box className="index__sub-container" id="ludicas">
+            <Box className="index__ludicas"></Box>
+          </Box>
+          <Box className="index__sub-container" id="teoria">
+            <Box className="index__teoria"></Box>
+          </Box>
         </Box>
       </Layout>
     </>

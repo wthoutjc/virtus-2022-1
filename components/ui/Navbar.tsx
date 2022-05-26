@@ -7,9 +7,12 @@ import {
   Icon,
   IconButton,
   Link,
+  Menu,
+  MenuItem,
   Toolbar,
   Tooltip,
   Typography,
+  useScrollTrigger,
 } from "@mui/material";
 import NextLink from "next/link";
 
@@ -92,6 +95,7 @@ const ModuleLogged = () => {
 
 const Navbar = () => {
   const [clicked, setClicked] = useState(false);
+  const [navMenu, setNavMenu] = useState(false);
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.auth);
@@ -109,6 +113,10 @@ const Navbar = () => {
 
   const handleCloseSideBar = () => {
     dispatch(closeSidebar());
+  };
+
+  const handleOpenNavMenu = () => {
+    setNavMenu(!navMenu);
   };
 
   useEffect(() => {
@@ -149,7 +157,7 @@ const Navbar = () => {
               <DiamondIcon />
             </Icon>
           )}
-          <NextLink href={logged ? "/home" : "/"} passHref>
+          <NextLink href={logged ? "/home" : "/#landing"} passHref>
             <Link
               sx={{ textDecoration: "none", color: "#fff" }}
               onClick={turnOffUxRender}
@@ -158,12 +166,64 @@ const Navbar = () => {
                 variant="h6"
                 sx={{ userSelect: "none", cursor: "pointer" }}
               >
-                App
+                VIRTUS
               </Typography>
             </Link>
           </NextLink>
         </Box>
-
+        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Button startIcon={<MenuIcon />} onClick={handleOpenNavMenu}>
+            Menú
+          </Button>
+          <Menu
+            open={navMenu}
+            keepMounted
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+            sx={{
+              display: { xs: "block", md: "none" },
+            }}
+            onClose={handleOpenNavMenu}
+          >
+            <MenuItem>Nosotros</MenuItem>
+            <MenuItem>Lúdicas</MenuItem>
+            <MenuItem>Teoría</MenuItem>
+          </Menu>
+        </Box>
+        <Box
+          sx={{
+            width: "50%",
+            display: { xs: "none", md: "flex" },
+            justifyContent: "space-evenly",
+          }}
+        >
+          <ActiveLink href="/#nosotros">
+            <Button
+              onClick={handleOpenNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Nosotros
+            </Button>
+          </ActiveLink>
+          <ActiveLink href="/#ludicas">
+            <Button
+              onClick={handleOpenNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Lúdicas
+            </Button>
+          </ActiveLink>
+          <ActiveLink href="/#teoria">
+            <Button
+              onClick={handleOpenNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Teoría
+            </Button>
+          </ActiveLink>
+        </Box>
         {logged ? <ModuleLogged /> : <ModuleAuth setClicked={setClicked} />}
       </Toolbar>
     </AppBar>

@@ -94,7 +94,7 @@ const LogInPage = () => {
                 : "login__left fade-animation"
             }
           >
-            <Typography variant="h4">Sign in to App - CRUD</Typography>
+            <Typography variant="h4">Iniciar sesión</Typography>
             <Box display={"flex"}>
               {Object.values(providers).map((provider: any) => {
                 if (provider.id === "credentials") {
@@ -118,7 +118,7 @@ const LogInPage = () => {
               })}
             </Box>
             <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-              or use your email account
+              ó usa tu cuenta de email
             </Typography>
             <Box
               sx={{ boxSizing: "border-box", padding: "1em", width: "100%" }}
@@ -129,7 +129,7 @@ const LogInPage = () => {
                 placeholder="E-mail"
                 label="E-mail"
                 error={validEmail}
-                helperText={validEmail ? "Invalid data" : "Type your e-mail..."}
+                helperText={validEmail ? "Invalid data" : "Escribe tu e-mail..."}
                 onBlur={() => setTouchedUser(true)}
                 onChange={(e) =>
                   setLoginInfo({ ...loginInfo, email: e.target.value })
@@ -148,7 +148,7 @@ const LogInPage = () => {
                 label="Password"
                 error={validPassword}
                 helperText={
-                  validPassword ? "Invalid data" : "Type your password..."
+                  validPassword ? "Invalid data" : "Escribe tu contraseña..."
                 }
                 onBlur={() => setTouchedPassword(true)}
                 onChange={(e) =>
@@ -167,14 +167,14 @@ const LogInPage = () => {
                   label={
                     <NextLink href="/auth/restore-password" passHref>
                       <Link sx={{ textDecoration: "none" }}>
-                        Forgot your password?
+                        ¿Olvidaste la contraseña?
                       </Link>
                     </NextLink>
                   }
                 />
               </Divider>
               <Button variant="contained" fullWidth onClick={handleLogin}>
-                SIGN IN
+                CONECTARSE
               </Button>
             </Box>
           </Box>
@@ -186,10 +186,10 @@ const LogInPage = () => {
             }
           >
             <Typography variant="h4" className="fade-animation">
-              Welcome back!
+              ¡Bienvenido de nuevo!
             </Typography>
             <Typography variant="body1" className="fade-animation">
-              To keep connected with us please login with your personal info
+              Para mantenerte conectado con nosotros, debes iniciar sesión con tu información personal.
             </Typography>
             <ActiveLink href="/auth/signup">
               <Button
@@ -197,7 +197,7 @@ const LogInPage = () => {
                 className="fade-animation"
                 onClick={() => setClicked(true)}
               >
-                <Typography variant="body1">SIGN UP</Typography>
+                <Typography variant="body1">REGISTRARME</Typography>
               </Button>
             </ActiveLink>
           </Box>

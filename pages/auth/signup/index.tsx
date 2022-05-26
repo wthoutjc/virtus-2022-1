@@ -125,7 +125,7 @@ const SignUpPage = () => {
                 : "signup__right fade-animation"
             }
           >
-            <Typography variant="h4">Create Account</Typography>
+            <Typography variant="h4">Crear una cuenta</Typography>
             <Box display={"flex"}>
               {Object.values(providers).map((provider: any) => {
                 if (provider.id === "credentials") {
@@ -149,7 +149,7 @@ const SignUpPage = () => {
               })}
             </Box>
             <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-              or use your email account for registration
+              ó usa tu e-mail para registrarte.
             </Typography>
             <Box
               sx={{ boxSizing: "border-box", padding: "1em", width: "100%" }}
@@ -160,7 +160,9 @@ const SignUpPage = () => {
                 placeholder="E-mail"
                 label="E-mail"
                 error={validEmail}
-                helperText={validEmail ? "Invalid data" : "Type your e-mail..."}
+                helperText={
+                  validEmail ? "Datos no válidos" : "Escribe tu e-mail..."
+                }
                 onBlur={() =>
                   setTouchedInputs({
                     ...touchedInputs,
@@ -181,10 +183,12 @@ const SignUpPage = () => {
               <TextField
                 fullWidth
                 sx={{ marginBottom: "1em" }}
-                placeholder="Name"
-                label="Name"
+                placeholder="Nombre"
+                label="Nombre"
                 error={validName}
-                helperText={validName ? "Invalid data" : "Type your name..."}
+                helperText={
+                  validName ? "Datos no válidos" : "Escribe tu nombre..."
+                }
                 onBlur={() =>
                   setTouchedInputs({
                     ...touchedInputs,
@@ -205,11 +209,13 @@ const SignUpPage = () => {
               <TextField
                 fullWidth
                 sx={{ marginBottom: "1em" }}
-                placeholder="Password"
-                label="Password"
+                placeholder="Contraseña"
+                label="Contraseña"
                 error={validPassword}
                 helperText={
-                  validPassword ? "Invalid data" : "Type your new password..."
+                  validPassword
+                    ? "Datos no válidos"
+                    : "Escribe tu contraseña..."
                 }
                 onBlur={() =>
                   setTouchedInputs({
@@ -231,13 +237,13 @@ const SignUpPage = () => {
               <TextField
                 fullWidth
                 sx={{ marginBottom: "1em" }}
-                placeholder="Confirm password"
-                label="Confirm password"
+                placeholder="Confirma contraseña"
+                label="Confirma contraseña"
                 error={validPassword2}
                 helperText={
                   validPassword2
-                    ? "Invalid data"
-                    : "Confirm your new password..."
+                    ? "Datos no válidos"
+                    : "Confirma tu contraseña..."
                 }
                 onBlur={() =>
                   setTouchedInputs({
@@ -257,7 +263,7 @@ const SignUpPage = () => {
                 }}
               />
               <Button variant="contained" fullWidth onClick={handleSignUp}>
-                SIGN UP
+                RESGISTRARME
               </Button>
             </Box>
           </Box>
@@ -269,10 +275,10 @@ const SignUpPage = () => {
             }
           >
             <Typography variant="h4" className="fade-animation">
-              Hello, Friend!
+              ¡Hola, Amigo!
             </Typography>
             <Typography variant="body1" className="fade-animation">
-              Enter your personal details and start journey with us
+              Digita tus datos personales y comienza a aprender con nosotros.
             </Typography>
             <ActiveLink href="/auth/login">
               <Button
@@ -280,7 +286,7 @@ const SignUpPage = () => {
                 className="fade-animation"
                 onClick={() => setClicked(true)}
               >
-                <Typography variant="body1">SIGN IN</Typography>
+                <Typography variant="body1">INICIAR SESIÓN</Typography>
               </Button>
             </ActiveLink>
           </Box>
