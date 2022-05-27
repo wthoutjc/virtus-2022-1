@@ -17,8 +17,13 @@ import { v4 as uuid } from "uuid";
 // Auth
 import { requireNoAuth } from "../auth";
 
+//Motion Effects
+import { motion, useViewportScroll } from "framer-motion"
+import { useEffect } from "react";
+
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
+  const { scrollYProgress } = useViewportScroll()
 
   const handleNotification = () => {
     const payload: INotification = {
@@ -31,10 +36,15 @@ const Home: NextPage = () => {
     dispatch(newNotification(payload));
   };
 
+  useEffect(() => {
+    console.log(scrollYProgress);
+  }, [scrollYProgress]);
+
   return (
     <>
       <Layout title={"Home - App"}>
         <Box className="index__container">
+          <motion.path style={{ pathLength: scrollYProgress }} />
           <Box className="index__landing" id="landing">
             <Typography
               variant="h2"
@@ -59,15 +69,28 @@ const Home: NextPage = () => {
               <Button onClick={handleNotification}> Learn more </Button>
             </Box>
           </Box>
-          <Box className="index__sub-container" id="nosotros">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="index__sub-container" id="nosotros"
+          >
             <Nosotros />
-          </Box>
-          <Box className="index__sub-container" id="ludicas">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="index__sub-container" id="ludicas"
+          >
             <Ludicas />
-          </Box>
-          <Box className="index__sub-container" id="teoria">
+          </motion.div>
+          <motion.div  
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="index__sub-container" id="teoria"
+          >
             <Teoria />
-          </Box>
+          </motion.div>
         </Box>
       </Layout>
     </>
