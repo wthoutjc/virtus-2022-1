@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 
 // Components
 import { Layout } from "../components/layout";
+import { Nosotros, Ludicas, Teoria } from "../components/landing";
 
 // Redux
 import { useAppDispatch } from "../hooks";
@@ -59,13 +60,13 @@ const Home: NextPage = () => {
             </Box>
           </Box>
           <Box className="index__sub-container" id="nosotros">
-            <Box className="index__nosotros">NOSOTROS</Box>
+            <Nosotros />
           </Box>
           <Box className="index__sub-container" id="ludicas">
-            <Box className="index__ludicas"></Box>
+            <Ludicas />
           </Box>
           <Box className="index__sub-container" id="teoria">
-            <Box className="index__teoria"></Box>
+            <Teoria />
           </Box>
         </Box>
       </Layout>

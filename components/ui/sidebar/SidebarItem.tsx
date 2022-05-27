@@ -31,7 +31,7 @@ const SidebarItem = ({ item, open }: ItemSideBar) => {
           <ListItemIcon
             sx={{
               minWidth: 0,
-              mr: open ? 3 : "auto",
+              mr: open ? 1 : "auto",
               justifyContent: "center",
             }}
           >

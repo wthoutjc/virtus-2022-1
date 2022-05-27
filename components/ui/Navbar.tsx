@@ -171,7 +171,7 @@ const Navbar = () => {
             </Link>
           </NextLink>
         </Box>
-        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+        {!logged && <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <Button startIcon={<MenuIcon />} onClick={handleOpenNavMenu}>
             Menú
           </Button>
@@ -187,12 +187,24 @@ const Navbar = () => {
             }}
             onClose={handleOpenNavMenu}
           >
-            <MenuItem>Nosotros</MenuItem>
-            <MenuItem>Lúdicas</MenuItem>
-            <MenuItem>Teoría</MenuItem>
+            <MenuItem>
+              <ActiveLink href="/#nosotros">
+                Nosotros
+              </ActiveLink>
+            </MenuItem>
+            <MenuItem>
+              <ActiveLink href="/#ludicas">
+                Lúdicas
+              </ActiveLink>
+            </MenuItem>
+            <MenuItem>
+              <ActiveLink href="/#teoria">
+                Teoría
+            </ActiveLink>
+            </MenuItem>
           </Menu>
-        </Box>
-        <Box
+        </Box>}
+        {!logged && <Box
           sx={{
             width: "50%",
             display: { xs: "none", md: "flex" },
@@ -202,28 +214,34 @@ const Navbar = () => {
           <ActiveLink href="/#nosotros">
             <Button
               onClick={handleOpenNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={{ my: 1, color: "white", display: "block" }}
             >
-              Nosotros
+              <Typography variant="caption">
+                Nosotros
+              </Typography>
             </Button>
           </ActiveLink>
           <ActiveLink href="/#ludicas">
             <Button
               onClick={handleOpenNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={{ my: 1, color: "white", display: "block" }}
             >
-              Lúdicas
+              <Typography variant="caption">
+                Lúdicas
+              </Typography>
             </Button>
           </ActiveLink>
           <ActiveLink href="/#teoria">
             <Button
               onClick={handleOpenNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={{ my: 1, color: "white", display: "block" }}
             >
-              Teoría
+              <Typography variant="caption">
+                  Teoría  
+              </Typography>
             </Button>
           </ActiveLink>
-        </Box>
+        </Box>}
         {logged ? <ModuleLogged /> : <ModuleAuth setClicked={setClicked} />}
       </Toolbar>
     </AppBar>
