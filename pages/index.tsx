@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 
 // Components
 import { Layout } from "../components/layout";
-import { Nosotros, Ludicas, Teoria } from "../components/landing";
+import { Nosotros, Ludicas, Teoria, Footer } from "../components/landing";
 
 // Redux
 import { useAppDispatch } from "../hooks";
@@ -18,12 +18,12 @@ import { v4 as uuid } from "uuid";
 import { requireNoAuth } from "../auth";
 
 //Motion Effects
-import { motion, useViewportScroll } from "framer-motion"
+import { motion, useViewportScroll } from "framer-motion";
 import { useEffect } from "react";
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
-  const { scrollYProgress } = useViewportScroll()
+  const { scrollYProgress } = useViewportScroll();
 
   const handleNotification = () => {
     const payload: INotification = {
@@ -69,10 +69,11 @@ const Home: NextPage = () => {
               <Button onClick={handleNotification}> Learn more </Button>
             </Box>
           </Box>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="index__sub-container" id="nosotros"
+            className="index__sub-container"
+            id="proyecto"
           >
             <Nosotros />
           </motion.div>
@@ -80,16 +81,26 @@ const Home: NextPage = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="index__sub-container" id="ludicas"
+            className="index__sub-container"
+            id="ludicas"
           >
             <Ludicas />
           </motion.div>
-          <motion.div  
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="index__sub-container" id="teoria"
+            className="index__sub-container"
+            id="modulos"
           >
             <Teoria />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="index__sub-container"
+            id="footer"
+          >
+            <Footer />
           </motion.div>
         </Box>
       </Layout>

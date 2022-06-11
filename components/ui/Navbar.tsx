@@ -171,77 +171,69 @@ const Navbar = () => {
             </Link>
           </NextLink>
         </Box>
-        {!logged && <Box sx={{ display: { xs: "flex", md: "none" } }}>
-          <Button startIcon={<MenuIcon />} onClick={handleOpenNavMenu}>
-            Menú
-          </Button>
-          <Menu
-            open={navMenu}
-            keepMounted
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
+        {!logged && (
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <Button startIcon={<MenuIcon />} onClick={handleOpenNavMenu}>
+              Menú
+            </Button>
+            <Menu
+              open={navMenu}
+              keepMounted
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+              onClose={handleOpenNavMenu}
+            >
+              <MenuItem>
+                <ActiveLink href="/#proyecto">Proyecto</ActiveLink>
+              </MenuItem>
+              <MenuItem>
+                <ActiveLink href="/#ludicas">Lúdicas</ActiveLink>
+              </MenuItem>
+              <MenuItem>
+                <ActiveLink href="/#modulos">Módulos</ActiveLink>
+              </MenuItem>
+            </Menu>
+          </Box>
+        )}
+        {!logged && (
+          <Box
             sx={{
-              display: { xs: "block", md: "none" },
+              width: "50%",
+              display: { xs: "none", md: "flex" },
+              justifyContent: "space-evenly",
             }}
-            onClose={handleOpenNavMenu}
           >
-            <MenuItem>
-              <ActiveLink href="/#nosotros">
-                Nosotros
-              </ActiveLink>
-            </MenuItem>
-            <MenuItem>
-              <ActiveLink href="/#ludicas">
-                Lúdicas
-              </ActiveLink>
-            </MenuItem>
-            <MenuItem>
-              <ActiveLink href="/#teoria">
-                Teoría
+            <ActiveLink href="/#proyecto">
+              <Button
+                onClick={handleOpenNavMenu}
+                sx={{ my: 1, color: "white", display: "block" }}
+              >
+                <Typography variant="caption">Proyecto</Typography>
+              </Button>
             </ActiveLink>
-            </MenuItem>
-          </Menu>
-        </Box>}
-        {!logged && <Box
-          sx={{
-            width: "50%",
-            display: { xs: "none", md: "flex" },
-            justifyContent: "space-evenly",
-          }}
-        >
-          <ActiveLink href="/#nosotros">
-            <Button
-              onClick={handleOpenNavMenu}
-              sx={{ my: 1, color: "white", display: "block" }}
-            >
-              <Typography variant="caption">
-                Nosotros
-              </Typography>
-            </Button>
-          </ActiveLink>
-          <ActiveLink href="/#ludicas">
-            <Button
-              onClick={handleOpenNavMenu}
-              sx={{ my: 1, color: "white", display: "block" }}
-            >
-              <Typography variant="caption">
-                Lúdicas
-              </Typography>
-            </Button>
-          </ActiveLink>
-          <ActiveLink href="/#teoria">
-            <Button
-              onClick={handleOpenNavMenu}
-              sx={{ my: 1, color: "white", display: "block" }}
-            >
-              <Typography variant="caption">
-                  Teoría  
-              </Typography>
-            </Button>
-          </ActiveLink>
-        </Box>}
+            <ActiveLink href="/#ludicas">
+              <Button
+                onClick={handleOpenNavMenu}
+                sx={{ my: 1, color: "white", display: "block" }}
+              >
+                <Typography variant="caption">Lúdicas</Typography>
+              </Button>
+            </ActiveLink>
+            <ActiveLink href="/#modulos">
+              <Button
+                onClick={handleOpenNavMenu}
+                sx={{ my: 1, color: "white", display: "block" }}
+              >
+                <Typography variant="caption">Módulos</Typography>
+              </Button>
+            </ActiveLink>
+          </Box>
+        )}
         {logged ? <ModuleLogged /> : <ModuleAuth setClicked={setClicked} />}
       </Toolbar>
     </AppBar>
