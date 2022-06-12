@@ -4,7 +4,27 @@ import { Box, Button, Typography } from "@mui/material";
 //Motion Effects
 import { motion } from "framer-motion";
 
+// Redux
+import { useAppDispatch } from "../../hooks";
+import { INotification } from "../../interfaces";
+import { newNotification } from "../../reducers";
+
+// uuid
+import { v4 as uuid } from "uuid";
+
 const Nosotros = () => {
+  const dispatch = useAppDispatch();
+
+  const handleStart = () => {
+    const payload: INotification = {
+      id: uuid(),
+      title: "Información",
+      message: "Sección en construcción 🚧",
+      severity: "info",
+    };
+    dispatch(newNotification(payload));
+  };
+
   return (
     <Box className="index__nosotrosBack">
       <motion.div
@@ -74,7 +94,9 @@ const Nosotros = () => {
               sin embargo, si es la primera vez que accedes al contenido es
               recomendable seguir la ruta pre establecida.
             </Typography>
-            <Button variant="contained">Comenzar</Button>
+            <Button variant="contained" onClick={handleStart}>
+              Comenzar
+            </Button>
           </Box>
         </Box>
       </motion.div>

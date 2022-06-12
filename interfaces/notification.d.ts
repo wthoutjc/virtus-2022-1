@@ -4,5 +4,5 @@ export interface INotification {
   id: string;
   severity: Severity;
   title: string;
-  message: string;
+  message: string | React.ReactNode;
 }

@@ -15,28 +15,13 @@ import {
 
 // Redux
 import { useAppDispatch } from "../hooks";
-import { INotification } from "../interfaces";
-import { newNotification, setLandingPosition } from "../reducers";
-
-// uuid
-import { v4 as uuid } from "uuid";
+import { setLandingPosition } from "../reducers";
 
 // Auth
 import { requireNoAuth } from "../auth";
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
-
-  const handleNotification = () => {
-    const payload: INotification = {
-      id: uuid(),
-      title: "Success:",
-      message:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, iusto quibusdam laboriosam magni at nesciunt quam. Architecto dignissimos numquam, fugiat rem commodi neque enim optio. Ut odit deserunt explicabo tenetur? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, iusto quibusdam laboriosam magni at nesciunt quam. Architecto dignissimos numquam, fugiat rem commodi neque enim optio. Ut odit deserunt explicabo tenetur?",
-      severity: "error",
-    };
-    dispatch(newNotification(payload));
-  };
 
   const ludicasRef = useRef<HTMLDivElement>(null);
   const proyectoRef = useRef<HTMLDivElement>(null);
@@ -56,7 +41,7 @@ const Home: NextPage = () => {
     <>
       <Layout title={"Home - VIRTUS Training"}>
         <Box className="index__container">
-          <Landing handleNotification={handleNotification} />
+          <Landing />
           <Box ref={ludicasRef} className="index__sub-container" id="ludicas">
             <Ludicas />
           </Box>

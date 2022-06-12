@@ -23,7 +23,7 @@ import { ActiveLink } from "../../../components/ui";
 import { v4 as uuid } from "uuid";
 
 // Icons
-import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
@@ -134,7 +134,7 @@ const SignUpPage = () => {
 
                 return (
                   <Tooltip
-                    title={`Sign up with ${provider.name}`}
+                    title={`Inicia sesión con ${provider.name}`}
                     key={provider.id}
                   >
                     <Button
@@ -142,7 +142,7 @@ const SignUpPage = () => {
                       className="signup__providers"
                       onClick={async () => await signIn(provider.id)}
                     >
-                      {provider.name === "GitHub" && <GitHubIcon />}
+                      {provider.name === "Google" && <GoogleIcon />}
                     </Button>
                   </Tooltip>
                 );

@@ -4,11 +4,37 @@ import Image from "next/image";
 // Motion
 import { motion } from "framer-motion";
 
-interface Props {
-  handleNotification: () => void;
-}
+// Redux
+import { useAppDispatch } from "../../hooks";
+import { INotification } from "../../interfaces";
+import { newNotification } from "../../reducers";
 
-const Landing = ({ handleNotification }: Props) => {
+// uuid
+import { v4 as uuid } from "uuid";
+
+const Landing = () => {
+  const dispatch = useAppDispatch();
+
+  const handleStart = () => {
+    const payload: INotification = {
+      id: uuid(),
+      title: "Información",
+      message: "Sección en construcción 🚧",
+      severity: "info",
+    };
+    dispatch(newNotification(payload));
+  };
+
+  const handleKnowMore = () => {
+    const payload: INotification = {
+      id: uuid(),
+      title: "Información",
+      message: "Sección en construcción 🚧",
+      severity: "info",
+    };
+    dispatch(newNotification(payload));
+  };
+
   return (
     <Box className="index__landing" id="landing">
       <motion.div
@@ -44,9 +70,11 @@ const Landing = ({ handleNotification }: Props) => {
           - Henry Ford
         </Typography>
         <Box className="index__options" alignSelf={"center"}>
-          <Button variant="contained"> Comenzar </Button>
+          <Button variant="contained" onClick={handleStart}>
+            Comenzar
+          </Button>
           <Divider orientation="vertical" flexItem />
-          <Button onClick={handleNotification}> Conoce más </Button>
+          <Button onClick={handleKnowMore}>Conoce más</Button>
         </Box>
       </motion.div>
       <motion.div

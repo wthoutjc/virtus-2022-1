@@ -21,7 +21,7 @@ import { incrementClicks } from "../../../reducers";
 import { ActiveLink } from "../../../components/ui";
 
 // Icons
-import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
 import PasswordIcon from "@mui/icons-material/Password";
 import EmailIcon from "@mui/icons-material/Email";
 import NextLink from "next/link";
@@ -103,7 +103,7 @@ const LogInPage = () => {
 
                 return (
                   <Tooltip
-                    title={`Sign in with ${provider.name}`}
+                    title={`Inicia sesión con ${provider.name}`}
                     key={provider.id}
                   >
                     <Button
@@ -111,7 +111,7 @@ const LogInPage = () => {
                       className="login__providers"
                       onClick={async () => await signIn(provider.id)}
                     >
-                      {provider.name === "GitHub" && <GitHubIcon />}
+                      {provider.name === "Google" && <GoogleIcon />}
                     </Button>
                   </Tooltip>
                 );
@@ -129,7 +129,9 @@ const LogInPage = () => {
                 placeholder="E-mail"
                 label="E-mail"
                 error={validEmail}
-                helperText={validEmail ? "Invalid data" : "Escribe tu e-mail..."}
+                helperText={
+                  validEmail ? "Invalid data" : "Escribe tu e-mail..."
+                }
                 onBlur={() => setTouchedUser(true)}
                 onChange={(e) =>
                   setLoginInfo({ ...loginInfo, email: e.target.value })
@@ -189,7 +191,8 @@ const LogInPage = () => {
               ¡Bienvenido de nuevo!
             </Typography>
             <Typography variant="body1" className="fade-animation">
-              Para mantenerte conectado con nosotros, debes iniciar sesión con tu información personal.
+              Para mantenerte conectado con nosotros, debes iniciar sesión con
+              tu información personal.
             </Typography>
             <ActiveLink href="/auth/signup">
               <Button
