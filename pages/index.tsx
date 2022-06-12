@@ -1,15 +1,22 @@
 import { GetServerSideProps } from "next";
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import type { NextPage } from "next";
+import { useEffect, useRef } from "react";
 
 // Components
 import { Layout } from "../components/layout";
-import { Nosotros, Ludicas, Teoria, Footer } from "../components/landing";
+import {
+  Nosotros,
+  Ludicas,
+  Teoria,
+  Footer,
+  Landing,
+} from "../components/landing";
 
 // Redux
 import { useAppDispatch } from "../hooks";
 import { INotification } from "../interfaces";
-import { newNotification } from "../reducers";
+import { newNotification, setLandingPosition } from "../reducers";
 
 // uuid
 import { v4 as uuid } from "uuid";
@@ -17,13 +24,8 @@ import { v4 as uuid } from "uuid";
 // Auth
 import { requireNoAuth } from "../auth";
 
-//Motion Effects
-import { motion, useViewportScroll } from "framer-motion";
-import { useEffect } from "react";
-
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
-  const { scrollYProgress } = useViewportScroll();
 
   const handleNotification = () => {
     const payload: INotification = {
@@ -36,72 +38,37 @@ const Home: NextPage = () => {
     dispatch(newNotification(payload));
   };
 
+  const ludicasRef = useRef<HTMLDivElement>(null);
+  const proyectoRef = useRef<HTMLDivElement>(null);
+  const modulosRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    console.log(scrollYProgress);
-  }, [scrollYProgress]);
+    dispatch(
+      setLandingPosition({
+        ludicas: ludicasRef.current!.offsetTop,
+        proyecto: proyectoRef.current!.offsetTop,
+        modulos: modulosRef.current!.offsetTop,
+      })
+    );
+  }, [dispatch]);
 
   return (
     <>
-      <Layout title={"Home - App"}>
+      <Layout title={"Home - VIRTUS Training"}>
         <Box className="index__container">
-          <motion.path style={{ pathLength: scrollYProgress }} />
-          <Box className="index__landing" id="landing">
-            <Typography
-              variant="h2"
-              sx={{ fontWeight: "bold", paddingBottom: "0.5em" }}
-              textAlign={"center"}
-            >
-              PENSAMIENTO COMPUTACIONAL
-            </Typography>
-            <Typography
-              variant="overline"
-              fontWeight={"400"}
-              fontSize={"1em"}
-              textAlign={"justify"}
-            >
-              En esta página encontrarás todos los fundamentos necesarios para
-              comprender acerca del pensamiento computacional y la importancia
-              del mismo en todos los ámbitos de la ciencia y la ingeniería.
-            </Typography>
-            <Box className="index__options">
-              <Button variant="contained"> About </Button>
-              <Divider orientation="vertical" flexItem />
-              <Button onClick={handleNotification}> Learn more </Button>
-            </Box>
-          </Box>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="index__sub-container"
-            id="proyecto"
-          >
-            <Nosotros />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="index__sub-container"
-            id="ludicas"
-          >
+          <Landing handleNotification={handleNotification} />
+          <Box ref={ludicasRef} className="index__sub-container" id="ludicas">
             <Ludicas />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="index__sub-container"
-            id="modulos"
-          >
+          </Box>
+          <Box ref={proyectoRef} className="index__sub-container" id="proyecto">
+            <Nosotros />
+          </Box>
+          <Box ref={modulosRef} className="index__sub-container" id="modulos">
             <Teoria />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="index__sub-container"
-            id="footer"
-          >
+          </Box>
+          <Box className="index__sub-container" id="footer">
             <Footer />
-          </motion.div>
+          </Box>
         </Box>
       </Layout>
     </>

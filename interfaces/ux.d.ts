@@ -1,6 +1,11 @@
 export interface IUx {
   clicks: number;
   sidebar: {
-    open: boolean,
-  }
+    open: boolean;
+  };
+  landingPosition: {
+    ludicas: number;
+    proyecto: number;
+    modulos: number;
+  };
 }

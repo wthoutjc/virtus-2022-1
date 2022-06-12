@@ -4,11 +4,12 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  background-color: #123;
 }
 #__next {
-  width: min(100%, 1600px);
+  width: 100%;
   background: url("../../public/img/background.svg") fixed 90%;
+  display: flex;
+  justify-content: center;
   // overflow: hidden;
 }
 .index__container {
@@ -18,26 +19,44 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: transparent;
+  scroll-behavior: smooth;
 }
 .index__container::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  background-color: var(--color-azulOscuroHover);
 }
 .index__container::-webkit-scrollbar-thumb {
   background-color: rgb(73, 109, 145);
   border-radius: 20px;
 }
 .index__landing {
-  width: min(60%, 800px);
+  width: 100%;
   min-height: 100%;
-  box-sizing: border-box;
+  display: flex;
+  padding-top: 4em;
+}
+.index__landing-content {
+  width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 2em;
+  padding: 1em;
+}
+.landing__funcyBorder {
+  width: 329px;
+  height: 289px;
+  border-radius: 30% 70% 70% 30% / 30% 22% 78% 70%;
+  background: #c0c0aa; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #1cefff,
+    #c0c0aa
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #1cefff,
+    #c0c0aa
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .index__landing > h2 {
   margin-bottom: 0.3em;
@@ -64,26 +83,25 @@ body {
 .index__nosotros,
 .index__ludicas,
 .index__teoria {
-  color: black;
   padding: 1em;
-}
-
-.index__nosotros {
-  background: #d3cce3; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #e9e4f0, #d3cce3);
-  background: linear-gradient(to right, #e9e4f0, #d3cce3);
-}
-.nosotros__objetivos,
-.nosotros__descripcion {
   width: 100%;
-  padding: 1em;
+}
+.index__nosotros {
+  width: 100%;
+  background-color: $blackPrimary;
+  color: $whiteSecondary;
+  position: relative;
   display: flex;
 }
 .nosotros__objetivos > div,
 .nosotros__descripcion > div {
   width: 50%;
 }
-
+.index__nosotrosBack {
+  width: 100%;
+}
+.index__teoria,
+.index__nosotrosBack,
 .index__ludicas {
   background-color: $blackPrimary;
   color: $whiteSecondary;
@@ -96,18 +114,17 @@ body {
 
 .index__teoria {
   width: 100%;
-  background: #d3cce3; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #e9e4f0,
-    #d3cce3
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #e9e4f0,
-    #d3cce3
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+.index__footer {
+  display: flex;
+  flex-direction: column;
+  background-color: $blackPrimary;
+  color: $whiteSecondary;
+  padding: 1em;
+  padding-top: 2em;
+}
+
 @media all and (max-width: 769px) {
   .index__container {
     justify-content: baseline;
@@ -122,17 +139,6 @@ body {
   .ludicas__detalles span img {
     min-width: 140px !important;
     height: 80px !important;
-  }
-  .index__landing {
-    padding: 0.4em;
-    padding-top: 3em;
-  }
-  .index__landing > h2 {
-    font-size: 300%;
-  }
-  .index__landing > h5 {
-    font-size: 100%;
-    text-align: center;
   }
   .index__options {
     width: min(100%, 320px);

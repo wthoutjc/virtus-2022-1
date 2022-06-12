@@ -1,159 +1,83 @@
 import Image from "next/image";
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 //Motion Effects
 import { motion } from "framer-motion";
 
 const Nosotros = () => {
   return (
-    <Box className="index__nosotros">
-      <Box className="nosotros__descripcion">
-        <Box>
-          <Typography gutterBottom variant="h3">
-            Primeros pasos en el pensamiento computacional
-          </Typography>
-          <Typography
-            sx={{ mb: 2 }}
-            variant="body2"
-            fontSize={"1.2em"}
-            textAlign={"justify"}
-          >
-            Este curso está enfocado en enseñar las bases teóricas del
-            pensamiento computacional, reflexionar sobre lo importante que es
-            tener un aprendizaje temprano de estos conceptos para solucionar
-            problemas complejos, y así, ampliar nuestra habilidad para
-            intercambiar ideas, comunicarnos, aprender a trabajar de manera
-            colaborativa y poder establecer una base algorítmica de pensamiento
-            lógico replicable computacionalmente.
-          </Typography>
-          <Typography variant="caption" fontSize={"1.2em"}>
-            <i>
-              &quot;El verdadero progreso es el que pone la tecnología al
-              alcance de todos.&quot;
-            </i>
-          </Typography>
-          <Typography variant="body1"> - Henry Ford</Typography>
-        </Box>
-        <Box display={"flex"} justifyContent="center">
-          <Card sx={{ maxWidth: 360, height: "fit-content" }}>
-            <CardMedia title="Pensamiento Computacional">
+    <Box className="index__nosotrosBack">
+      <motion.div
+        initial={{ x: -400, opacity: 0 }}
+        transition={{ duration: 1 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        style={{ width: "100%" }}
+        viewport={{ once: true }}
+      >
+        <Box className="index__nosotros">
+          <Box>
+            <Box sx={{ width: 400 }}>
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill="#fdcb6e"
+                  d="M49.2,-57.6C65.5,-45,81.7,-31.1,84.7,-14.9C87.6,1.4,77.3,20,66.1,37.1C55,54.1,43,69.6,28.1,73.5C13.1,77.3,-4.7,69.6,-21.5,62.2C-38.3,54.7,-54.1,47.5,-61.2,35.3C-68.3,23.1,-66.6,5.8,-62.7,-10C-58.7,-25.9,-52.3,-40.3,-41.5,-53.9C-30.6,-67.5,-15.3,-80.2,0.6,-80.9C16.4,-81.6,32.9,-70.2,49.2,-57.6Z"
+                  transform="translate(100 100)"
+                />
+              </svg>
+            </Box>
+            <Box sx={{ position: "absolute", bottom: "60px" }}>
               <Image
                 src={
-                  "https://res.cloudinary.com/ddmeptk5c/image/upload/q_auto:good/v1654900388/VIRTUS/marvin-meyer-SYTO3xs06fU-unsplash_pamezh.jpg"
+                  "https://res.cloudinary.com/ddmeptk5c/image/upload/q_auto:best/v1654992009/VIRTUS/teacher_1_ttoba1.png"
                 }
                 width={360}
-                height={200}
+                height={330}
                 alt="computational thinking"
               />
-            </CardMedia>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Pensamiento Computacional
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                textAlign={"justify"}
-              >
-                Curso completamente virtual y gratis orientado a docentes que
-                quieran incorporar el pensamiento computacional como un modelo
-                pedagógico de aprendizaje.
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" variant="contained">
-                Comenzar
-              </Button>
-            </CardActions>
-          </Card>
+            </Box>
+          </Box>
+          <Box>
+            <Typography
+              variant="body1"
+              sx={{
+                fontWeight: "bold",
+                paddingBottom: "0.5em",
+                color: "rgba(187, 187, 187, 0.877)",
+              }}
+            >
+              Primeros pasos en el pensamiento computacional
+            </Typography>
+            <Typography
+              variant="h3"
+              sx={{ fontWeight: "bold", paddingBottom: "0.5em" }}
+            >
+              Descripción del proyecto
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              fontSize={"1em"}
+              textAlign={"justify"}
+              sx={{ pb: 2 }}
+            >
+              Curso completamente virtual y gratis orientado a docentes que
+              quieran incorporar el pensamiento computacional como un modelo
+              pedagógico de aprendizaje.
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              fontSize={"1em"}
+              textAlign={"justify"}
+              sx={{ pb: 2 }}
+            >
+              Contenido modularizado y con alto nivel de granularidad, puedes
+              ver cada sección independientemente de no haber visto la anterior,
+              sin embargo, si es la primera vez que accedes al contenido es
+              recomendable seguir la ruta pre establecida.
+            </Typography>
+            <Button variant="contained">Comenzar</Button>
+          </Box>
         </Box>
-      </Box>
-      <Box className="nosotros__objetivos">
-        <Box display={"flex"} justifyContent="center">
-          <Card sx={{ maxWidth: 360, height: "fit-content" }}>
-            <CardMedia title="Pensamiento Computacional">
-              <Image
-                src={
-                  "https://res.cloudinary.com/ddmeptk5c/image/upload/q_auto:eco/v1654903824/VIRTUS/adi-goldstein-EUsVwEOsblE-unsplash_gbnljh.jpg"
-                }
-                width={360}
-                height={200}
-                alt="computational thinking"
-              />
-            </CardMedia>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Fuentes teóricas
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                textAlign={"justify"}
-              >
-                Este es un trabajo de investigación, debido a esto, en esta
-                sección podrás averiguar por todas nuestras fuentes consultadas.
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" variant="contained">
-                Acceder
-              </Button>
-            </CardActions>
-          </Card>
-        </Box>
-        <Box>
-          <Typography variant="h4" gutterBottom>
-            Descripción del pro
-          </Typography>
-          <Typography
-            sx={{ mb: 2 }}
-            variant="body2"
-            fontSize={"1.2em"}
-            textAlign={"justify"}
-          >
-            Acceso gratuito a un contenido de aprendizaje e-learning que brinda
-            un espacio cómodo, dinámico e interactivo que estará disponible las
-            24 horas del día, los 7 días de la semana.
-          </Typography>
-          <Typography
-            sx={{ mb: 2 }}
-            variant="body2"
-            fontSize={"1.2em"}
-            textAlign={"justify"}
-          >
-            Guarda tus procesos de aprendizaje, tus puntuaciones y logros a
-            medida que desarrolles el contenido programático.
-          </Typography>
-          <Typography
-            sx={{ mb: 2 }}
-            variant="body2"
-            fontSize={"1.2em"}
-            textAlign={"justify"}
-          >
-            Acceso a diferentes fuentes de información verificables como
-            contenido complementario.
-          </Typography>
-          <Typography
-            sx={{ mb: 2 }}
-            variant="body2"
-            fontSize={"1.2em"}
-            textAlign={"justify"}
-          >
-            Contenido modularizado y con alto nivel de granularidad, puedes ver
-            cada sección independientemente de no haber visto la anterior, sin
-            embargo, si es la primera vez que accedes al contenido es
-            recomendable seguir la ruta pre establecida.
-          </Typography>
-        </Box>
-      </Box>
+      </motion.div>
     </Box>
   );
 };

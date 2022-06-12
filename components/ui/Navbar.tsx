@@ -12,9 +12,9 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  useScrollTrigger,
 } from "@mui/material";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 
 // Icons
 import DiamondIcon from "@mui/icons-material/Diamond";
@@ -48,13 +48,13 @@ const ModuleAuth = ({ setClicked }: ModuleAuthProps) => {
     <Box className={"navbar__actions"}>
       <ActiveLink href="/auth/login">
         <Typography variant="overline" onClick={() => setClicked(true)}>
-          Log in
+          Inicia sesión
         </Typography>
       </ActiveLink>
       <Divider orientation="vertical" flexItem />
       <ActiveLink href="/auth/signup">
         <Button variant="outlined" onClick={() => setClicked(true)}>
-          Sign up
+          Regístrate
         </Button>
       </ActiveLink>
     </Box>
@@ -94,13 +94,18 @@ const ModuleLogged = () => {
 };
 
 const Navbar = () => {
+  const router = useRouter();
+
   const [clicked, setClicked] = useState(false);
   const [navMenu, setNavMenu] = useState(false);
+  const [activeLanding, setActiveLanding] = useState<string | null>(null);
+
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.auth);
-  const { sidebar } = useAppSelector((state) => state.ux);
+  const { sidebar, landingPosition } = useAppSelector((state) => state.ux);
 
+  const { ludicas, modulos, proyecto } = landingPosition;
   const { logged } = user;
 
   const turnOffUxRender = () => {
@@ -124,6 +129,33 @@ const Navbar = () => {
       dispatch(incrementClicks());
     }
   }, [clicked, dispatch]);
+
+  useEffect(() => {
+    if (!logged && modulos !== 0 && ludicas !== 0 && proyecto !== 0) {
+      const handleScroll = () => {
+        const scrollValue =
+          document.querySelector(".index__container")!.scrollTop;
+
+        if (scrollValue + 400 >= ludicas && scrollValue + 400 < proyecto) {
+          return setActiveLanding("ludicas");
+        }
+        if (scrollValue + 400 >= proyecto && scrollValue + 400 < modulos) {
+          return setActiveLanding("proyecto");
+        }
+        if (scrollValue + 400 >= modulos) {
+          return setActiveLanding("modulos");
+        } else {
+          return setActiveLanding(null);
+        }
+      };
+      document
+        .querySelector(".index__container")
+        ?.addEventListener("scroll", handleScroll);
+      return () => {
+        removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [logged, router, ludicas, modulos, proyecto]);
 
   return (
     <AppBar
@@ -159,7 +191,10 @@ const Navbar = () => {
           )}
           <NextLink href={logged ? "/home" : "/#landing"} passHref>
             <Link
-              sx={{ textDecoration: "none", color: "#fff" }}
+              sx={{
+                textDecoration: "none",
+                color: "#fff",
+              }}
               onClick={turnOffUxRender}
             >
               <Typography
@@ -189,11 +224,12 @@ const Navbar = () => {
               onClose={handleOpenNavMenu}
             >
               <MenuItem>
-                <ActiveLink href="/#proyecto">Proyecto</ActiveLink>
-              </MenuItem>
-              <MenuItem>
                 <ActiveLink href="/#ludicas">Lúdicas</ActiveLink>
               </MenuItem>
+              <MenuItem>
+                <ActiveLink href="/#proyecto">Proyecto</ActiveLink>
+              </MenuItem>
+
               <MenuItem>
                 <ActiveLink href="/#modulos">Módulos</ActiveLink>
               </MenuItem>
@@ -208,28 +244,46 @@ const Navbar = () => {
               justifyContent: "space-evenly",
             }}
           >
-            <ActiveLink href="/#proyecto">
-              <Button
-                onClick={handleOpenNavMenu}
-                sx={{ my: 1, color: "white", display: "block" }}
-              >
-                <Typography variant="caption">Proyecto</Typography>
+            <ActiveLink href="/#ludicas">
+              <Button sx={{ my: 1, color: "white", display: "block" }}>
+                <Typography
+                  variant="caption"
+                  sx={
+                    activeLanding === "ludicas"
+                      ? { color: "#1e90ff" }
+                      : { color: "white" }
+                  }
+                >
+                  Lúdicas
+                </Typography>
               </Button>
             </ActiveLink>
-            <ActiveLink href="/#ludicas">
-              <Button
-                onClick={handleOpenNavMenu}
-                sx={{ my: 1, color: "white", display: "block" }}
-              >
-                <Typography variant="caption">Lúdicas</Typography>
+            <ActiveLink href="/#proyecto">
+              <Button sx={{ my: 1, color: "white", display: "block" }}>
+                <Typography
+                  sx={
+                    activeLanding === "proyecto"
+                      ? { color: "#1e90ff" }
+                      : { color: "white" }
+                  }
+                  variant="caption"
+                >
+                  Proyecto
+                </Typography>
               </Button>
             </ActiveLink>
             <ActiveLink href="/#modulos">
-              <Button
-                onClick={handleOpenNavMenu}
-                sx={{ my: 1, color: "white", display: "block" }}
-              >
-                <Typography variant="caption">Módulos</Typography>
+              <Button sx={{ my: 1, color: "white", display: "block" }}>
+                <Typography
+                  sx={
+                    activeLanding === "modulos"
+                      ? { color: "#1e90ff" }
+                      : { color: "white" }
+                  }
+                  variant="caption"
+                >
+                  Módulos
+                </Typography>
               </Button>
             </ActiveLink>
           </Box>
