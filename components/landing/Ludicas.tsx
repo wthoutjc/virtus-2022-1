@@ -73,9 +73,9 @@ const Ludicas = () => {
                       color="text.secondary"
                       textAlign={"justify"}
                     >
-                      Al final de cada módulo se te presentará una serie de
-                      preguntas que te permitirán evaluar tu conocimiento
-                      aprendido.
+                      Al final de cada módulo se presentará una serie de
+                      preguntas que permitirán evaluar su conocimiento
+                      aprendido en los módulos de aprendizaje.
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -153,9 +153,9 @@ const Ludicas = () => {
                       color="text.secondary"
                       textAlign={"justify"}
                     >
-                      Pon a prueba tus conocimientos teóricos en una serie de
+                      Ponga a prueba sus conocimientos teóricos en una serie de
                       ejercicios prácticos básicos que servirán de base para
-                      analizar to progreso en el curso.
+                      analizar su progreso en el curso.
                     </Typography>
                   </CardContent>
                   <CardActions>

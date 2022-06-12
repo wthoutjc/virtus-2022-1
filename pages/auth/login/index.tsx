@@ -200,7 +200,7 @@ const LogInPage = () => {
                 className="fade-animation"
                 onClick={() => setClicked(true)}
               >
-                <Typography variant="body1">REGISTRARME</Typography>
+                <Typography variant="body1">REGÍSTRATE</Typography>
               </Button>
             </ActiveLink>
           </Box>
