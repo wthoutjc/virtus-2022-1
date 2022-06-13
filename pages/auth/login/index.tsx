@@ -21,6 +21,7 @@ import { ActiveLink } from "../../../components/ui";
 import { Layout, AuthLayout } from "../../../components/layout";
 
 // Icons
+import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from "@mui/icons-material/Google";
 import PasswordIcon from "@mui/icons-material/Password";
 import EmailIcon from "@mui/icons-material/Email";
@@ -129,6 +130,7 @@ const LogInPage = ({ providers }: Props) => {
                         onClick={async () => await signIn(provider.id)}
                       >
                         {provider.name === "Google" && <GoogleIcon />}
+                        {provider.name === "GitHub" && <GitHubIcon />}
                       </Button>
                     </Tooltip>
                   );

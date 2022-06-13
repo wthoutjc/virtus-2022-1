@@ -29,6 +29,7 @@ import { ActiveLink } from "../../../components/ui";
 import { v4 as uuid } from "uuid";
 
 // Icons
+import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from "@mui/icons-material/Google";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
@@ -162,6 +163,7 @@ const SignUpPage = ({ providers }: Props) => {
                         onClick={async () => await signIn(provider.id)}
                       >
                         {provider.name === "Google" && <GoogleIcon />}
+                        {provider.name === "GitHub" && <GitHubIcon />}
                       </Button>
                     </Tooltip>
                   );
