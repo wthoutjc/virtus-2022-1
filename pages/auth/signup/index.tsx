@@ -91,9 +91,10 @@ const SignUpPage = () => {
   }, [clicked, dispatch]);
 
   useEffect(() => {
-    getProviders().then((prov) => {
-      setProviders(prov);
-    });
+    (async () => {
+      const res = await getProviders();
+      setProviders(res);
+    })();
   }, []);
 
   const handleSignUp = async () => {
