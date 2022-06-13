@@ -44,7 +44,7 @@ const LogInPage = () => {
 
   const clicksCurrent = useMemo(() => ux.clicks, [ux.clicks]);
 
-  const [providers, setProviders] = useState<any>({});
+  const [providers, setProviders] = useState<any | null>(null);
 
   const [clicked, setClicked] = useState(false);
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
@@ -95,28 +95,30 @@ const LogInPage = () => {
             }
           >
             <Typography variant="h4">Iniciar sesión</Typography>
-            <Box display={"flex"}>
-              {Object.values(providers).map((provider: any) => {
-                if (provider.id === "credentials") {
-                  return null;
-                }
+            {providers && (
+              <Box display={"flex"}>
+                {Object.values(providers).map((provider: any) => {
+                  if (provider.id === "credentials") {
+                    return null;
+                  }
 
-                return (
-                  <Tooltip
-                    title={`Inicia sesión con ${provider.name}`}
-                    key={provider.id}
-                  >
-                    <Button
-                      variant="outlined"
-                      className="login__providers"
-                      onClick={async () => await signIn(provider.id)}
+                  return (
+                    <Tooltip
+                      title={`Inicia sesión con ${provider.name}`}
+                      key={provider.id}
                     >
-                      {provider.name === "Google" && <GoogleIcon />}
-                    </Button>
-                  </Tooltip>
-                );
-              })}
-            </Box>
+                      <Button
+                        variant="outlined"
+                        className="login__providers"
+                        onClick={async () => await signIn(provider.id)}
+                      >
+                        {provider.name === "Google" && <GoogleIcon />}
+                      </Button>
+                    </Tooltip>
+                  );
+                })}
+              </Box>
+            )}
             <Typography variant="body2" sx={{ fontStyle: "italic" }}>
               ó usa tu cuenta de email
             </Typography>
