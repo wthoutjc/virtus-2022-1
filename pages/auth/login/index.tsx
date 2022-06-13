@@ -78,11 +78,14 @@ const LogInPage = () => {
   }, [clicked, dispatch]);
 
   useEffect(() => {
-    (async () => {
-      const res = await getProviders();
-      setProviders(res);
-    })();
+    getProviders().then((prov) => {
+      setProviders(prov);
+    });
   }, []);
+
+  useEffect(() => {
+    console.log(providers)
+  }, [providers])
 
   return (
     <Layout title={"App - Login"}>
