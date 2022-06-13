@@ -29,7 +29,7 @@ import { ActiveLink } from "../../../components/ui";
 import { v4 as uuid } from "uuid";
 
 // Icons
-import GitHubIcon from '@mui/icons-material/GitHub';
+import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
@@ -103,17 +103,6 @@ const SignUpPage = ({ providers }: Props) => {
       dispatch(incrementClicks());
     }
   }, [clicked, dispatch]);
-
-  useEffect(() => {
-    console.log('PROVIDERS');
-    console.log(providers);
-    if (process.env.GOOGLE_CLIENT_ID) {
-      console.log('EXISTE');      
-    }
-    else {
-      console.log('NO EXISTE');
-    }
-  }, [providers]);
 
   const handleSignUp = async () => {
     const { hasError, message } = await signInAuth({ ...registerInfo });

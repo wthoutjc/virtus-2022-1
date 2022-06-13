@@ -87,20 +87,6 @@ const LogInPage = () => {
     getProviders().then((provs) => setProviders(provs));
   }, []);
 
-  useEffect(() => {
-    if (process.env.GOOGLE_CLIENT_ID) {
-      console.log("EXISTE");
-    } else {
-      console.log("NO EXISTE");
-    }
-    if (providers) {
-      console.log("PROVIDERS");
-      console.log(providers);
-    } else {
-      console.log("NO HAY PROVIDERS");
-    }
-  }, [providers]);
-
   return (
     <Layout title={"App - Login"}>
       <AuthLayout>
