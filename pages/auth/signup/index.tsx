@@ -106,6 +106,12 @@ const SignUpPage = ({ providers }: Props) => {
   useEffect(() => {
     console.log('PROVIDERS');
     console.log(providers);
+    if (process.env.GOOGLE_CLIENT_ID) {
+      console.log('EXISTE');      
+    }
+    else {
+      console.log('NO EXISTE');
+    }
   }, [providers]);
 
   const handleSignUp = async () => {
