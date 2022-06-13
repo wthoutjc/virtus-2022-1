@@ -82,7 +82,9 @@ const Footer = () => {
       message: (
         <NosotrosINFO
           socialNetwork={"LinkedIn"}
-          link={"https://www.linkedin.com/in/juan-camilo-ram%C3%ADrez-r%C3%A1tiva-010a9320b/"}
+          link={
+            "https://www.linkedin.com/in/juan-camilo-ram%C3%ADrez-r%C3%A1tiva-010a9320b/"
+          }
           name={"Juan Camilo Ramírez Rátiva"}
         />
       ),
@@ -145,8 +147,8 @@ const Footer = () => {
           <Typography variant="h6" fontSize={"1em"} sx={{ mb: 2 }}>
             Términos de uso
           </Typography>
-          <NextLink href={"/"} onClick={handleMessage} passHref>
-            <Link>
+          <NextLink href={"/"} passHref>
+            <Link onClick={handleMessage}>
               <Typography
                 variant="subtitle1"
                 fontSize={"0.6em"}
@@ -157,8 +159,8 @@ const Footer = () => {
               </Typography>
             </Link>
           </NextLink>
-          <NextLink href={"/"} onClick={handleMessage} passHref>
-            <Link>
+          <NextLink href={"/"} passHref>
+            <Link onClick={handleMessage}>
               <Typography
                 variant="subtitle1"
                 fontSize={"0.6em"}
@@ -169,8 +171,8 @@ const Footer = () => {
               </Typography>
             </Link>
           </NextLink>
-          <NextLink href={"/"} onClick={handleMessage} passHref>
-            <Link>
+          <NextLink href={"/"} passHref>
+            <Link onClick={handleMessage}>
               <Typography
                 variant="subtitle1"
                 fontSize={"0.6em"}
