@@ -21,7 +21,7 @@ import { ActiveLink } from "../../../components/ui";
 import { Layout, AuthLayout } from "../../../components/layout";
 
 // Icons
-import GitHubIcon from '@mui/icons-material/GitHub';
+import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import PasswordIcon from "@mui/icons-material/Password";
 import EmailIcon from "@mui/icons-material/Email";
@@ -33,7 +33,6 @@ import {
   getProviders,
   LiteralUnion,
 } from "next-auth/react";
-import { GetServerSideProps } from "next";
 
 // Next Auth
 import { signIn } from "next-auth/react";
@@ -44,14 +43,7 @@ interface LoginInfo {
   password: string;
 }
 
-interface Props {
-  providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  > | null;
-}
-
-const LogInPage = ({ providers }: Props) => {
+const LogInPage = () => {
   const dispatch = useAppDispatch();
 
   const { ux } = useAppSelector((state) => state);
@@ -63,6 +55,8 @@ const LogInPage = ({ providers }: Props) => {
     email: "",
     password: "",
   });
+
+  const [providers, setProviders] = useState<any | null>(null);
 
   const [touchedUser, setTouchedUser] = useState(false);
   const [touchedPassword, setTouchedPassword] = useState(false);
@@ -90,13 +84,20 @@ const LogInPage = ({ providers }: Props) => {
   }, [clicked, dispatch]);
 
   useEffect(() => {
-    console.log('PROVIDERS');
-    console.log(providers);
+    getProviders().then((provs) => setProviders(provs));
+  }, []);
+
+  useEffect(() => {
     if (process.env.GOOGLE_CLIENT_ID) {
-      console.log('EXISTE');      
+      console.log("EXISTE");
+    } else {
+      console.log("NO EXISTE");
     }
-    else {
-      console.log('NO EXISTE');
+    if (providers) {
+      console.log("PROVIDERS");
+      console.log(providers);
+    } else {
+      console.log("NO HAY PROVIDERS");
     }
   }, [providers]);
 
@@ -228,14 +229,6 @@ const LogInPage = ({ providers }: Props) => {
       </AuthLayout>
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const providers = await getProviders();
-
-  return {
-    props: { providers },
-  };
 };
 
 export default LogInPage;
