@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 
 // Providers
-import GoogleProvider from "next-auth/providers/google";
+import GoogleProvider from 'next-auth/providers/google';
 import Credentials from "next-auth/providers/credentials";
 
 export default NextAuth({
@@ -41,8 +41,8 @@ export default NextAuth({
     newUser: "/auth/signup",
   },
   session: {
-    maxAge: 86400,
     strategy: "jwt",
+    maxAge: 86400,
     updateAge: 17280,
   },
   callbacks: {
