@@ -9,8 +9,14 @@ import {
 } from "@mui/material";
 import { AuthLayout, Layout } from "../../../components/layout";
 
+// API - Next
 import { signInAuth } from "../../../auth";
-import { getProviders, signIn } from "next-auth/react";
+import {
+  ClientSafeProvider,
+  getProviders,
+  LiteralUnion,
+  signIn,
+} from "next-auth/react";
 
 // Redux
 import { useAppSelector, useAppDispatch } from "../../../hooks";
@@ -31,6 +37,8 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
 // Interfaces
 import { INotification } from "../../../interfaces";
+import { BuiltInProviderType } from "next-auth/providers";
+import { GetServerSideProps } from "next";
 
 interface LoginInfo {
   email: string;
@@ -39,14 +47,19 @@ interface LoginInfo {
   password2: string;
 }
 
-const SignUpPage = () => {
+interface Props {
+  providers: Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null;
+}
+
+const SignUpPage = ({ providers }: Props) => {
   const dispatch = useAppDispatch();
 
   const { ux } = useAppSelector((state) => state);
 
   const currentClicks = useMemo(() => ux.clicks, [ux.clicks]);
-
-  const [providers, setProviders] = useState<any | null>(null);
 
   const [clicked, setClicked] = useState(false);
 
@@ -91,14 +104,8 @@ const SignUpPage = () => {
   }, [clicked, dispatch]);
 
   useEffect(() => {
-    getProviders().then((prov) => {
-      setProviders(prov);
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log(providers)
-  }, [providers])
+    console.log(providers);
+  }, [providers]);
 
   const handleSignUp = async () => {
     const { hasError, message } = await signInAuth({ ...registerInfo });
@@ -300,6 +307,14 @@ const SignUpPage = () => {
       </AuthLayout>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const providers = await getProviders();
+
+  return {
+    props: { providers },
+  };
 };
 
 export default SignUpPage;

@@ -10,7 +10,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Layout, AuthLayout } from "../../../components/layout";
 
 // Redux
 import { useAppSelector, useAppDispatch } from "../../../hooks";
@@ -19,6 +18,7 @@ import { incrementClicks } from "../../../reducers";
 // Components
 // UI
 import { ActiveLink } from "../../../components/ui";
+import { Layout, AuthLayout } from "../../../components/layout";
 
 // Icons
 import GoogleIcon from "@mui/icons-material/Google";
@@ -27,24 +27,35 @@ import EmailIcon from "@mui/icons-material/Email";
 import NextLink from "next/link";
 
 // API - Next
-import { getProviders } from "next-auth/react";
+import {
+  ClientSafeProvider,
+  getProviders,
+  LiteralUnion,
+} from "next-auth/react";
+import { GetServerSideProps } from "next";
 
 // Next Auth
 import { signIn } from "next-auth/react";
+import { BuiltInProviderType } from "next-auth/providers";
 
 interface LoginInfo {
   email: string;
   password: string;
 }
 
-const LogInPage = () => {
+interface Props {
+  providers: Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null;
+}
+
+const LogInPage = ({ providers }: Props) => {
   const dispatch = useAppDispatch();
 
   const { ux } = useAppSelector((state) => state);
 
   const clicksCurrent = useMemo(() => ux.clicks, [ux.clicks]);
-
-  const [providers, setProviders] = useState<any | null>(null);
 
   const [clicked, setClicked] = useState(false);
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
@@ -78,14 +89,8 @@ const LogInPage = () => {
   }, [clicked, dispatch]);
 
   useEffect(() => {
-    getProviders().then((prov) => {
-      setProviders(prov);
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log(providers)
-  }, [providers])
+    console.log(providers);
+  }, [providers]);
 
   return (
     <Layout title={"App - Login"}>
@@ -214,6 +219,14 @@ const LogInPage = () => {
       </AuthLayout>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const providers = await getProviders();
+
+  return {
+    props: { providers },
+  };
 };
 
 export default LogInPage;
