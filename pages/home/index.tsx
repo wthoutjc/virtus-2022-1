@@ -4,17 +4,12 @@ import { Layout } from "../../components/layout";
 // Components
 import { Admin, Client, Employee } from "../../components/roles";
 import { ConnectedLayout } from "../../components/layout";
-import { CTable } from "../../components/ui/table";
 
 // Enum
 import { Hierarchy } from "../../enum";
 
 // Redux
 import { useAppSelector } from "../../hooks";
-import { GetServerSideProps } from "next";
-
-// Request
-import { request } from "../../api";
 
 //Interface
 import { DBDataUsers } from "../../interfaces";
@@ -39,16 +34,6 @@ const HomePage = ({ data }: Props) => {
       </ConnectedLayout>
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { data } = await request.get<DBDataUsers[]>("/data/users");
-
-  return {
-    props: {
-      data,
-    },
-  };
 };
 
 export default HomePage;
