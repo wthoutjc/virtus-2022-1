@@ -89,6 +89,7 @@ const LogInPage = ({ providers }: Props) => {
   }, [clicked, dispatch]);
 
   useEffect(() => {
+    console.log('PROVIDERS');
     console.log(providers);
   }, [providers]);
 
