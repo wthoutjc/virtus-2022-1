@@ -24,7 +24,7 @@ const Ludicas = () => {
     setIsMobile(window.innerWidth < 768);
   }, []);
 
-  const variants: MotionProps = isMobile
+  const variants: MotionProps = !isMobile
     ? {
         initial: { x: 600, opacity: 0 },
         transition: { duration: 1 },

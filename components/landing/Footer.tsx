@@ -95,10 +95,8 @@ const Footer = () => {
 
   return (
     <Box className="index__footer">
-      <Box
-        sx={{ md: { display: "flex", justifyContent: "space-around", mb: 3 } }}
-      >
-        <Box sx={{ md: { width: "30%" }, xs: { width: "100%" } }}>
+      <Box className="index__footer_container">
+        <Box className="index__footer_cards">
           <Typography variant="h6" fontSize={"1em"} sx={{ mb: 2 }}>
             VIRTUS Training
           </Typography>
@@ -116,7 +114,7 @@ const Footer = () => {
             lógico replicable computacionalmente.
           </Typography>
         </Box>
-        <Box sx={{ md: { width: "16%" }, xs: { width: "100%" } }}>
+        <Box className="index__footer_cards2">
           <Typography variant="h6" fontSize={"1em"} sx={{ mb: 2 }}>
             Relacionados
           </Typography>
@@ -145,7 +143,7 @@ const Footer = () => {
             </Link>
           </NextLink>
         </Box>
-        <Box sx={{ md: { width: "16%" }, xs: { width: "100%" } }}>
+        <Box className="index__footer_cards2">
           <Typography variant="h6" fontSize={"1em"} sx={{ mb: 2 }}>
             Términos de uso
           </Typography>
@@ -186,7 +184,7 @@ const Footer = () => {
             </Link>
           </NextLink>
         </Box>
-        <Box sx={{ md: { width: "16%" }, xs: { width: "100%" } }}>
+        <Box className="index__footer_cards2">
           <Typography variant="h6" fontSize={"1em"} sx={{ mb: 2 }}>
             Nosotros
           </Typography>

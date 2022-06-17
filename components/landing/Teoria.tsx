@@ -35,7 +35,7 @@ const Teoria = () => {
       setExpanded(newExpanded ? panel : false);
     };
 
-  const variants: MotionProps = isMobile
+  const variants: MotionProps = !isMobile
     ? {
         initial: { x: -400, opacity: 0 },
         transition: { duration: 1 },
