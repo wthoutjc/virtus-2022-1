@@ -33,6 +33,7 @@
   border-radius: 100%;
   color: darken($color: $whitePrimary, $amount: 10);
   border-color: $whitePrimary;
+  margin-left: 1em;
   &:hover {
     border-color: $whitePrimary;
   }

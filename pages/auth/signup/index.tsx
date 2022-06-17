@@ -48,14 +48,7 @@ interface LoginInfo {
   password2: string;
 }
 
-interface Props {
-  providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  > | null;
-}
-
-const SignUpPage = ({ providers }: Props) => {
+const SignUpPage = () => {
   const dispatch = useAppDispatch();
 
   const { ux } = useAppSelector((state) => state);
@@ -70,6 +63,8 @@ const SignUpPage = ({ providers }: Props) => {
     password: "",
     password2: "",
   });
+
+  const [providers, setProviders] = useState<any | null>(null);
 
   const [touchedInputs, setTouchedInputs] = useState({
     email: false,
@@ -121,6 +116,10 @@ const SignUpPage = ({ providers }: Props) => {
 
     await signIn("credentials", { email, password });
   };
+
+  useEffect(() => {
+    getProviders().then((provs) => setProviders(provs));
+  }, []);
 
   return (
     <Layout title={"App - Signup"}>
@@ -305,14 +304,6 @@ const SignUpPage = ({ providers }: Props) => {
       </AuthLayout>
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const providers = await getProviders();
-
-  return {
-    props: { providers },
-  };
 };
 
 export default SignUpPage;
