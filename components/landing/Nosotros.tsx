@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Box, Button, Typography } from "@mui/material";
 
 //Motion Effects
-import { motion } from "framer-motion";
+import { motion, MotionProps } from "framer-motion";
 
 // Redux
 import { useAppDispatch } from "../../hooks";
@@ -11,9 +11,15 @@ import { newNotification } from "../../reducers";
 
 // uuid
 import { v4 as uuid } from "uuid";
+import { useEffect, useState } from "react";
 
 const Nosotros = () => {
   const dispatch = useAppDispatch();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const handleStart = () => {
     const payload: INotification = {
@@ -25,17 +31,21 @@ const Nosotros = () => {
     dispatch(newNotification(payload));
   };
 
+  const variants: MotionProps = isMobile
+    ? {
+        initial: { x: 600, opacity: 0 },
+        transition: { duration: 1 },
+        whileInView: { x: 0, opacity: 1 },
+        style: { width: "100%" },
+        viewport: { once: true },
+      }
+    : {};
+
   return (
     <Box className="index__nosotrosBack">
-      <motion.div
-        initial={{ x: -400, opacity: 0 }}
-        transition={{ duration: 1 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        style={{ width: "100%" }}
-        viewport={{ once: true }}
-      >
+      <motion.div {...variants}>
         <Box className="index__nosotros">
-          <Box>
+          <Box sx={{ position: "relative" }}>
             <Box sx={{ width: 400 }}>
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -45,7 +55,12 @@ const Nosotros = () => {
                 />
               </svg>
             </Box>
-            <Box sx={{ position: "absolute", bottom: "60px" }}>
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: "60px",
+              }}
+            >
               <Image
                 src={
                   "https://res.cloudinary.com/ddmeptk5c/image/upload/q_auto:best/v1654992009/VIRTUS/teacher_1_ttoba1.png"

@@ -4,6 +4,12 @@
   padding: 0;
   font-family: "Montserrat", sans-serif !important;
 }
+html,
+body,
+#root {
+  /* Prevents overflow on the x-axis */
+  overflow-x: hidden;
+}
 .fade-animation {
   animation: opacityTransition 0.3s ease-in;
 }

@@ -45,7 +45,7 @@ interface ModuleAuthProps {
 
 const ModuleAuth = ({ setClicked }: ModuleAuthProps) => {
   return (
-    <Box className={"navbar__actions"}>
+    <Box className={"navbar__actions navbar__responsive"}>
       <ActiveLink href="/auth/login">
         <Typography variant="overline" onClick={() => setClicked(true)}>
           Inicia sesión
@@ -165,7 +165,7 @@ const Navbar = () => {
     >
       <Toolbar
         variant="dense"
-        sx={{ display: "flex", justifyContent: "space-between", padding: 0 }}
+        sx={{ display: "flex", justifyContent: "space-between" }}
       >
         <Box display={"flex"} alignItems={"center"}>
           {logged ? (
@@ -208,8 +208,19 @@ const Navbar = () => {
         </Box>
         {!logged && (
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <Button startIcon={<MenuIcon />} onClick={handleOpenNavMenu}>
-              Menú
+            <Button
+              startIcon={<MenuIcon />}
+              onClick={handleOpenNavMenu}
+              sx={{
+                backgroundColor: "white",
+                color: "black",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                mr: 2,
+              }}
+            >
+              <Typography variant="overline">Menú</Typography>
             </Button>
             <Menu
               open={navMenu}
@@ -229,9 +240,14 @@ const Navbar = () => {
               <MenuItem>
                 <ActiveLink href="/#proyecto">Proyecto</ActiveLink>
               </MenuItem>
-
               <MenuItem>
                 <ActiveLink href="/#modulos">Módulos</ActiveLink>
+              </MenuItem>
+              <MenuItem>
+                <ActiveLink href="/auth/login">Iniciar sesión</ActiveLink>
+              </MenuItem>
+              <MenuItem>
+                <ActiveLink href="/auth/signup">Regístrate</ActiveLink>
               </MenuItem>
             </Menu>
           </Box>

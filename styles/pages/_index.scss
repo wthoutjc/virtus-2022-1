@@ -124,7 +124,16 @@ body {
   padding: 1em;
   padding-top: 2em;
 }
-
+.index__teoriaAccordion {
+  display: flex;
+  justify-content: space-around;
+}
+.index__teoriaAccordion_container1 {
+  width: 45%;
+}
+.index__teoriaAccordion_container2 {
+  width: 50%;
+}
 @media all and (max-width: 769px) {
   .index__container {
     justify-content: baseline;
@@ -143,5 +152,51 @@ body {
   .index__options {
     width: min(100%, 320px);
     margin-inline: auto;
+  }
+  .index__landing {
+    padding-top: 1em;
+    flex-direction: column;
+  }
+  .index__landing-content {
+    width: 100%;
+    padding: 1em;
+  }
+  .index__landing-content > h2 {
+    margin-bottom: 0.3em;
+    font-size: 220%;
+  }
+  .index__landing-content > span {
+    font-size: 100%;
+  }
+  .landing__funcyBorder {
+    display: none;
+  }
+  .index__ludicas h6 {
+    font-size: 100%;
+  }
+  .index__ludicas h2 {
+    font-size: 200%;
+  }
+  .index__nosotros {
+    flex-direction: column;
+  }
+  .index__nosotrosBack h3 {
+    font-size: 200%;
+  }
+  .index__teoria h3{
+    font-size: 200%;
+  }
+  .index__teoria h6{
+    font-size: 100%;
+  }
+  .index__teoriaAccordion {
+    flex-direction: column-reverse;
+  }
+  .index__teoriaAccordion_container1 {
+    width: 100%;
+  }
+  .index__teoriaAccordion_container2 {
+    width: 100%;
+    margin-bottom: 1em;
   }
 }

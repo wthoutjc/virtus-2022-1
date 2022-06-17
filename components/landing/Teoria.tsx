@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -20,25 +20,34 @@ import StarIcon from "@mui/icons-material/Star";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 //Motion Effects
-import { motion } from "framer-motion";
+import { motion, MotionProps } from "framer-motion";
 
 const Teoria = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
     };
 
+  const variants: MotionProps = isMobile
+    ? {
+        initial: { x: -400, opacity: 0 },
+        transition: { duration: 1 },
+        whileInView: { x: 0, opacity: 1 },
+        style: { width: "100%" },
+        viewport: { once: true },
+      }
+    : {};
+
   return (
     <Box className="index__teoria">
-      <motion.div
-        initial={{ x: -400, opacity: 0 }}
-        transition={{ duration: 1 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        style={{ width: "100%" }}
-        viewport={{ once: true }}
-      >
+      <motion.div {...variants}>
         <Typography
           variant="h3"
           sx={{ fontWeight: "bold", paddingBottom: "0.5em" }}
@@ -54,11 +63,8 @@ const Teoria = () => {
           Conoce nuestra ruta de aprendizaje que te guiará en tu proceso de
           formación en el pensamiento computacional.
         </Typography>
-        <Box
-          display={"flex"}
-          sx={{ width: "100%", justifyContent: "space-around" }}
-        >
-          <Box sx={{ width: "45%" }}>
+        <Box className="index__teoriaAccordion">
+          <Box className="index__teoriaAccordion_container1">
             <Accordion
               TransitionProps={{ unmountOnExit: true }}
               expanded={expanded === "panel1"}
@@ -1152,7 +1158,7 @@ const Teoria = () => {
               </AccordionDetails>
             </Accordion>
           </Box>
-          <Box sx={{ width: "50%" }}>
+          <Box className="index__teoriaAccordion_container2">
             <Card
               sx={{
                 height: "fit-content",
