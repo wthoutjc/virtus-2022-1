@@ -3,7 +3,7 @@
 }
 .active-navbar > * {
   color: #1e90ff !important;
-  border-color: #1e90ff;
+  border-color: #1e90ff !important;
   &:hover {
     border-color: #1e90ff;
   }

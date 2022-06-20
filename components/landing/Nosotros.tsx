@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Box, Button, Typography } from "@mui/material";
 
 //Motion Effects
-import { motion, MotionProps } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Redux
 import { useAppDispatch } from "../../hooks";
@@ -11,15 +11,9 @@ import { newNotification } from "../../reducers";
 
 // uuid
 import { v4 as uuid } from "uuid";
-import { useEffect, useState } from "react";
 
 const Nosotros = () => {
   const dispatch = useAppDispatch();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
 
   const handleStart = () => {
     const payload: INotification = {
@@ -31,19 +25,15 @@ const Nosotros = () => {
     dispatch(newNotification(payload));
   };
 
-  const variants: MotionProps = !isMobile
-    ? {
-        initial: { x: 600, opacity: 0 },
-        transition: { duration: 1 },
-        whileInView: { x: 0, opacity: 1 },
-        style: { width: "100%" },
-        viewport: { once: true },
-      }
-    : {};
-
   return (
     <Box className="index__nosotrosBack">
-      <motion.div {...variants}>
+      <motion.div
+        initial={{ x: -200, opacity: 0 }}
+        transition={{ duration: 1 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        style={{ width: "100%" }}
+        viewport={{ once: true }}
+      >
         <Box className="index__nosotros">
           <Box sx={{ position: "relative" }}>
             <Box sx={{ width: 400 }}>

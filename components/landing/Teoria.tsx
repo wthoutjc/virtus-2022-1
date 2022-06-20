@@ -20,34 +20,25 @@ import StarIcon from "@mui/icons-material/Star";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 //Motion Effects
-import { motion, MotionProps } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Teoria = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
     };
 
-  const variants: MotionProps = !isMobile
-    ? {
-        initial: { x: -400, opacity: 0 },
-        transition: { duration: 1 },
-        whileInView: { x: 0, opacity: 1 },
-        style: { width: "100%" },
-        viewport: { once: true },
-      }
-    : {};
-
   return (
     <Box className="index__teoria">
-      <motion.div {...variants}>
+      <motion.div
+        initial={{ x: -200, opacity: 0 }}
+        transition={{ duration: 1 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        style={{ width: "100%" }}
+        viewport={{ once: true }}
+      >
         <Typography
           variant="h3"
           sx={{ fontWeight: "bold", paddingBottom: "0.5em" }}

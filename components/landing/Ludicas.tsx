@@ -12,31 +12,22 @@ import {
 import Image from "next/image";
 
 // Motion
-import { motion, MotionProps } from "framer-motion";
+import { motion } from "framer-motion";
 
 type ShowMore = "quices" | "actividades relacionales" | "ejercicios practicos";
 
 const Ludicas = () => {
   const [showMore, setShowMore] = useState<ShowMore | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
-
-  const variants: MotionProps = !isMobile
-    ? {
-        initial: { x: 600, opacity: 0 },
-        transition: { duration: 1 },
-        whileInView: { x: 0, opacity: 1 },
-        style: { width: "100%" },
-        viewport: { once: true },
-      }
-    : {};
 
   return (
     <Box className="index__ludicas">
-      <motion.div {...variants}>
+      <motion.div
+        initial={{ x: -200, opacity: 0 }}
+        transition={{ duration: 1 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        style={{ width: "100%" }}
+        viewport={{ once: true }}
+      >
         <Typography
           variant="h2"
           sx={{ fontWeight: "bold", paddingBottom: "0.5em" }}
