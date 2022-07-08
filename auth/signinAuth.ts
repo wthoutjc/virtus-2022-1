@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // Interface
 interface SignInData {
@@ -13,6 +14,10 @@ interface SignInAuth {
   message?: string;
 }
 
+const virtusApi = axios.create({
+  baseURL: "/api",
+});
+
 const signInAuth = async ({
   email,
   name,
@@ -20,17 +25,30 @@ const signInAuth = async ({
   password2,
 }: SignInData): Promise<SignInAuth> => {
   try {
-    //const { data } = await tesloApi.post('/user/register', { name, email, password });
-    // const { token, user } = data;
+    await virtusApi.post("/user/register", {
+      name,
+      email,
+      password,
+      password2,
+    });
+
     return {
       hasError: false,
+      message: "Registration successful",
     };
   } catch (error) {
+    console.error(error);
+
+    if (axios.isAxiosError(error)) {
+      return {
+        hasError: true,
+        message: "Email already registered",
+      };
+    }
+
     return {
       hasError: true,
-      message: axios.isAxiosError(error)
-        ? String(error.response?.data)
-        : "SignIn process failed. Try again or contact with support!",
+      message: "Email already registered",
     };
   }
 };

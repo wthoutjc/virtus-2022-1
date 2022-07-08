@@ -1,9 +1,10 @@
 import NextAuth from "next-auth";
 
 // Providers
-import GoogleProvider from 'next-auth/providers/google';
-import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
+import { dbUsers } from "../../../database";
 
 export default NextAuth({
   providers: [
@@ -32,12 +33,10 @@ export default NextAuth({
         },
       },
       async authorize(credentials) {
-        //TODO: 'Adaptar este modulo a los requerimientos del proyecto'
-        //return dbusers.checkUserEmailPassword(credentials!.email, credentials!.passowrd)
-        return {
-          name: "Pepito",
-          hierarchy: "Client",
-        };
+        return await dbUsers.checkUserEmailPassword(
+          credentials!.email,
+          credentials!.password
+        );
       },
     }),
   ],
@@ -58,9 +57,10 @@ export default NextAuth({
 
         switch (account.type) {
           case "oauth":
-            //TODO: verificar si existe en DB, sino, crearlo
-            const _user = { name: "Pepito", hierarchy: "Client" };
-            token.user = _user;
+            token.user = await dbUsers.OAuthToDbUser(
+              user?.email || "",
+              user?.name || ""
+            );
             break;
           case "credentials":
             token.user = user;
