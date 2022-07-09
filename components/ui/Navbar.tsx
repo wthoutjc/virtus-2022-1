@@ -65,7 +65,7 @@ const ModuleLogged = () => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.auth);
-  const { hierarchy } = user;
+  const { name } = user;
 
   const handleLogout = () => {
     dispatch(turnOffRender());
@@ -76,7 +76,7 @@ const ModuleLogged = () => {
   return (
     <Box className={"navbar__actions"}>
       <Typography variant="overline" display={"flex"} alignItems={"center"}>
-        {hierarchy}
+        {name}
       </Typography>
       <Divider orientation="vertical" flexItem />
       <Tooltip title="Logout">

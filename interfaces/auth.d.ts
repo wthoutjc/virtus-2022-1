@@ -4,5 +4,5 @@ export interface IAuth {
   logged?: boolean;
   id: string;
   name: string;
-  hierarchy: Hierarchy | null;
+  role: Hierarchy | null;
 }

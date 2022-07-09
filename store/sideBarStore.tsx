@@ -1,6 +1,9 @@
 // Icons
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import SchoolIcon from '@mui/icons-material/School';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 //Interfaces
 import { SideBarData } from "../interfaces";
@@ -9,7 +12,7 @@ const AdminSideBarStore: SideBarData[] = [
   {
     to: "/home/account",
     title: "Account",
-    Icon: <AccountBoxIcon />, 
+    Icon: <AccountBoxIcon />,
   },
   {
     to: "/home/optionADMIN1",
@@ -33,60 +36,27 @@ const AdminSideBarStore: SideBarData[] = [
   },
 ];
 
-const EmployeeSideBarStore: SideBarData[] = [
+const TeacherSideBarStore: SideBarData[] = [
   {
     to: "/home/account",
-    title: "Account",
-    Icon: <AccountBoxIcon />, 
+    title: "Cuenta",
+    Icon: <AccountBoxIcon />,
   },
   {
-    to: "/home/optionEMPLOYEE1",
-    title: "optionEMPLOYEE1",
-    Icon: <AddBoxIcon />,
+    to: "/home/learn",
+    title: "Estudiar",
+    Icon: <SchoolIcon />,
   },
   {
-    to: "/home/optionEMPLOYEE2",
-    title: "optionEMPLOYEE2",
-    Icon: <AddBoxIcon />,
+    to: "/home/stats",
+    title: "Estadísticas",
+    Icon: <BarChartIcon />,
   },
   {
-    to: "/home/optionEMPLOYEE3",
-    title: "optionEMPLOYEE3",
-    Icon: <AddBoxIcon />,
-  },
-  {
-    to: "/home/optionEMPLOYEE4",
-    title: "optionEMPLOYEE4",
-    Icon: <AddBoxIcon />,
+    to: "/home/guide",
+    title: "Guía",
+    Icon: <MenuBookIcon />,
   },
 ];
 
-const ClientSideBarStore: SideBarData[] = [
-  {
-    to: "/home/account",
-    title: "Account",
-    Icon: <AccountBoxIcon />, 
-  },
-  {
-    to: "/home/optionCLIENT1",
-    title: "optionCLIENT1",
-    Icon: <AddBoxIcon />,
-  },
-  {
-    to: "/home/optionCLIENT2",
-    title: "optionCLIENT2",
-    Icon: <AddBoxIcon />,
-  },
-  {
-    to: "/home/optionCLIENT3",
-    title: "optionCLIENT3",
-    Icon: <AddBoxIcon />,
-  },
-  {
-    to: "/home/optionCLIENT4",
-    title: "optionCLIENT4",
-    Icon: <AddBoxIcon />,
-  },
-];
-
-export { AdminSideBarStore, EmployeeSideBarStore, ClientSideBarStore };
+export { AdminSideBarStore, TeacherSideBarStore };

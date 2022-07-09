@@ -1,7 +1,6 @@
 enum Hierarchy {
-    admin = 'Admin',
-    employee = 'Employee',
-    client = 'Client',
+    admin = 'admin',
+    teacher = 'teacher',
 }
 
 export { Hierarchy }

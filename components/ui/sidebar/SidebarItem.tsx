@@ -31,13 +31,16 @@ const SidebarItem = ({ item, open }: ItemSideBar) => {
           <ListItemIcon
             sx={{
               minWidth: 0,
-              mr: open ? 1 : "auto",
+              mr: open ? 1 : 0,
               justifyContent: "center",
             }}
           >
             {Icon}
           </ListItemIcon>
-          <ListItemText primary={title} sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText
+            primary={title}
+            sx={{ opacity: open ? 1 : 0, ml: open ? 1 : 0 }}
+          />
         </ListItemButton>
       </Tooltip>
     </ActiveSideBarLink>

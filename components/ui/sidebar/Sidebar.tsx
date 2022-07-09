@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-import { CSSObject, List, styled, Theme } from "@mui/material";
+import { Box, CSSObject, Divider, List, styled, Theme } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 
 // Redux
 import { useAppSelector } from "../../../hooks";
 
 // SideBarData
-import {
-  AdminSideBarStore,
-  ClientSideBarStore,
-  EmployeeSideBarStore,
-} from "../../../store";
+import { AdminSideBarStore, TeacherSideBarStore } from "../../../store";
 
 // Interfaces - Types - Enum
 import { SideBarData } from "../../../interfaces";
@@ -68,20 +64,18 @@ const Sidebar = () => {
 
   const { sidebar } = useAppSelector((state) => state.ux);
   const { user } = useAppSelector((state) => state.auth);
-  const { hierarchy } = user;
+  const { role } = user;
 
   useEffect(() => {
-    switch (hierarchy) {
+    switch (role) {
       case Hierarchy.admin:
         return setData(AdminSideBarStore);
-      case Hierarchy.employee:
-        return setData(EmployeeSideBarStore);
-      case Hierarchy.client:
-        return setData(ClientSideBarStore);
+      case Hierarchy.teacher:
+        return setData(TeacherSideBarStore);
       default:
         return setData([]);
     }
-  }, [hierarchy]);
+  }, [role]);
 
   return (
     <Drawer
@@ -94,9 +88,14 @@ const Sidebar = () => {
       }
     >
       <List>
-        {data?.map((item, index) => (
-          <SidebarItem key={index} item={item} open={sidebar.open} />
-        ))}
+        {data?.map((item, index) => {
+          return (
+            <Box key={index}>
+              <SidebarItem item={item} open={sidebar.open} />
+              { index % 2 === 0 && <Divider />}
+            </Box>
+          );
+        })}
       </List>
     </Drawer>
   );

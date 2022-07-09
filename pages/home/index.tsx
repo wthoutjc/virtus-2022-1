@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { Layout } from "../../components/layout";
 
 // Components
-import { Admin, Client, Employee } from "../../components/roles";
+import { Admin, Teacher } from "../../components/roles";
 import { ConnectedLayout } from "../../components/layout";
 
 // Enum
@@ -21,16 +21,13 @@ interface Props {
 const HomePage = ({ data }: Props) => {
   const { user } = useAppSelector((state) => state.auth);
 
-  const { hierarchy } = user;
+  const { role } = user;
 
   return (
     <Layout title="Welcome - App">
       <ConnectedLayout>
-        <Box sx={{ padding: "0 1em" }}>
-          {hierarchy === Hierarchy.admin && <Admin />}
-          {hierarchy === Hierarchy.employee && <Employee />}
-          {hierarchy === Hierarchy.client && <Client data={data} />}
-        </Box>
+        {role === Hierarchy.admin && <Admin />}
+        {role === Hierarchy.teacher && <Teacher />}
       </ConnectedLayout>
     </Layout>
   );
