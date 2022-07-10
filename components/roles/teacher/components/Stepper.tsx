@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 
 // ICons
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -22,14 +22,12 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        "linear-gradient(to right, #159957, #155799);",
+      backgroundImage: "linear-gradient(to right, #159957, #155799);",
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        "linear-gradient(to right, #159957, #155799);",
+      backgroundImage: "linear-gradient(to right, #159957, #155799);",
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -55,13 +53,11 @@ const ColorlibStepIconRoot = styled("div")<{
   justifyContent: "center",
   alignItems: "center",
   ...(ownerState.active && {
-    backgroundImage:
-      "linear-gradient(to right, #159957, #155799);",
+    backgroundImage: "linear-gradient(to right, #159957, #155799);",
     boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
   }),
   ...(ownerState.completed && {
-    backgroundImage:
-      "linear-gradient(to right, #159957, #155799);",
+    backgroundImage: "linear-gradient(to right, #159957, #155799);",
   }),
 }));
 
@@ -86,12 +82,16 @@ function ColorlibStepIcon(props: StepIconProps) {
 
 const steps = ["Principiante", "Intermedio", "Avanzado"];
 
-const CustomizedSteppers = () => {
+interface Props {
+  activeStep: number;
+}
+
+const CustomizedSteppers = ({ activeStep }: Props) => {
   return (
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper
         alternativeLabel
-        activeStep={1}
+        activeStep={activeStep}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (

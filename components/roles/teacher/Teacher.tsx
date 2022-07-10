@@ -1,12 +1,9 @@
+import NextLink from "next/link";
 import {
   Box,
   Card,
-  CardProps,
-  CardContent,
   styled,
   Typography,
-  Paper,
-  PaperProps,
   FormControl,
   InputLabel,
   Select,
@@ -17,12 +14,9 @@ import {
   CardHeader,
   Chip,
   IconButton,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Tooltip,
+  Button,
 } from "@mui/material";
-import Image from "next/image";
 
 import {
   Chart as ChartJS,
@@ -33,6 +27,8 @@ import {
   PointElement,
   LineElement,
   Tooltip as TooltipChart,
+  ChartData,
+  ChartTypeRegistry,
 } from "chart.js";
 ChartJS.register(
   ArcElement,
@@ -43,79 +39,23 @@ ChartJS.register(
   LineElement,
   TooltipChart
 );
-import { Doughnut, Chart } from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Components
-import { CustomizedSteppers } from "./components";
+import { Progress } from "./components";
 import { ModuleStudy } from "../../study";
 
 // Icons
 import StarIcon from "@mui/icons-material/Star";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-const OPTIONS = {
-  cutout: 55,
-  responsive: true,
-};
+// Interfaces
+import { IModulo, ISubModulo } from "../../../interfaces";
 
-const doughnoutData = {
-  labels: ["Falta", "Alcanzado"],
-  datasets: [
-    {
-      label: "% Learned",
-      data: [12, 88],
-      backgroundColor: ["#243b55", "#00d46a63"], // Falta - Alcanzado
-      borderColor: ["#243b55", "#10d46a"],
-      borderWidth: 1,
-    },
-  ],
-};
-
-const labels = ["January", "February", "March", "April", "May"];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      type: "line" as const,
-      label: "Dataset 1",
-      borderColor: "rgb(255, 99, 132)",
-      borderWidth: 2,
-      fill: false,
-      data: [1, 2, 3, 4, 5],
-    },
-    {
-      type: "bar" as const,
-      label: "Dataset 2",
-      backgroundColor: "rgb(75, 192, 192)",
-      data: [1, 2, 3, 4, 5],
-      borderColor: "white",
-      borderWidth: 2,
-    },
-    {
-      type: "bar" as const,
-      label: "Dataset 3",
-      backgroundColor: "rgb(53, 162, 235)",
-      data: [1, 2, 3, 4, 5],
-    },
-  ],
-};
-
-const RCard = styled((props: CardProps) => {
-  return <Card {...props} />;
-})(() => ({
-  backgroundImage:
-    "linear-gradient(to right, #159957, #155799);",
-}));
-
-const RPaper = styled((props: PaperProps) => {
-  return <Paper {...props} />;
-})(() => ({
-  backgroundColor: "#192a56",
-  backgroundImage: "linear-gradient(to right, #141e30, #243b55)",
-}));
+// Redux
+import { useAppSelector } from "../../../hooks";
 
 const StyledDivider = styled((props: DividerProps) => {
   return <Divider {...props} />;
@@ -123,12 +63,178 @@ const StyledDivider = styled((props: DividerProps) => {
   backgroundColor: "#c8d6e5",
 }));
 
-const Teacher = () => {
+interface Props {
+  modulos: IModulo[];
+}
+
+type TypeRange = "Básico" | "Intermedio" | "Avanzado" | null;
+
+const Teacher = ({ modulos }: Props) => {
+  const { user } = useAppSelector((state) => state.auth);
+  const [currentSubmodule, setCurrentSubmodule] = useState<ISubModulo | null>(
+    null
+  );
+  const { grades } = user;
+
+  const [data, setData] = useState<ChartData<
+    keyof ChartTypeRegistry,
+    number[],
+    string
+  > | null>(null);
+
   const [visualizeNotes, setVisualizeNotes] = useState("");
+
+  const [range, setRange] = useState<TypeRange>(null);
+  useEffect(() => {
+    if (!grades) {
+      setRange("Básico");
+      return;
+    }
+    if (grades?.module3) {
+      setRange("Avanzado");
+      return;
+    }
+    if (grades?.module3) {
+      setRange("Intermedio");
+      return;
+    }
+    if (grades?.module3) {
+      setRange("Básico");
+      return;
+    }
+  }, [grades]);
+
+  useEffect(() => {
+    if (grades) {
+      let find: number;
+      switch (range) {
+        case "Básico":
+          find = grades.module1.length;
+          setCurrentSubmodule(
+            modulos[0].content.filter((data, index) => index + 1 === find)[0]
+          ); // setCurrentSubmodule
+          break;
+        case "Intermedio":
+          find = grades.module2.length;
+          setCurrentSubmodule(
+            modulos[1].content.filter((data, index) => index + 1 === find)[0]
+          );
+          break;
+        case "Avanzado":
+          find = grades.module3.length;
+          setCurrentSubmodule(
+            modulos[2].content.filter((data, index) => index + 1 === find)[0]
+          );
+          break;
+        default:
+          find = 0;
+          break;
+      }
+    }
+  }, [grades, range, modulos]);
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setVisualizeNotes(event.target.value);
   };
+
+  useEffect(() => {
+    if (grades) {
+      switch (visualizeNotes) {
+        case "module1":
+          setData({
+            labels: ["1", "2", "3", "4", "5", "6"],
+            datasets: [
+              {
+                type: "line" as const,
+                label: "Nota",
+                borderColor: "rgb(255, 99, 132)",
+                borderWidth: 2,
+                fill: false,
+                data: grades.module1,
+              },
+              {
+                type: "bar" as const,
+                label: "Nota",
+                backgroundColor: "rgb(75, 192, 192)",
+                data: grades.module1,
+                borderColor: "white",
+                borderWidth: 2,
+              },
+              {
+                type: "bar" as const,
+                label: "Nota",
+                backgroundColor: "rgb(53, 162, 235)",
+                data: grades.module1,
+              },
+            ],
+          });
+          break;
+        case "module2":
+          setData({
+            labels: ["1", "2", "3", "4"],
+            datasets: [
+              {
+                type: "line" as const,
+                label: "Dataset 1",
+                borderColor: "rgb(255, 99, 132)",
+                borderWidth: 2,
+                fill: false,
+                data: grades.module2,
+              },
+              {
+                type: "bar" as const,
+                label: "Dataset 2",
+                backgroundColor: "rgb(75, 192, 192)",
+                data: grades.module2,
+                borderColor: "white",
+                borderWidth: 2,
+              },
+              {
+                type: "bar" as const,
+                label: "Dataset 3",
+                backgroundColor: "rgb(53, 162, 235)",
+                data: grades.module2,
+              },
+            ],
+          });
+          break;
+        case "module3":
+          setData({
+            labels: ["1", "2", "3", "4", "5", "6", "7"],
+            datasets: [
+              {
+                type: "line" as const,
+                label: "Dataset 1",
+                borderColor: "rgb(255, 99, 132)",
+                borderWidth: 2,
+                fill: false,
+                data: grades.module3,
+              },
+              {
+                type: "bar" as const,
+                label: "Dataset 2",
+                backgroundColor: "rgb(75, 192, 192)",
+                data: grades.module3,
+                borderColor: "white",
+                borderWidth: 2,
+              },
+              {
+                type: "bar" as const,
+                label: "Dataset 3",
+                backgroundColor: "rgb(53, 162, 235)",
+                data: grades.module3,
+              },
+            ],
+          });
+          break;
+        default:
+        case "module1":
+          setData(null);
+          break;
+          break;
+      }
+    }
+  }, [visualizeNotes, grades]);
 
   return (
     <>
@@ -158,99 +264,7 @@ const Teacher = () => {
           </Typography>
         </Box>
         <StyledDivider variant="fullWidth" sx={{ mb: 2 }} />
-        <Box
-          display={"flex"}
-          justifyContent={"space-around"}
-          sx={{ width: "100%" }}
-        >
-          <Box sx={{ width: "55%" }}>
-            <RCard
-              sx={{
-                width: "100%",
-                borderEndEndRadius: 0,
-                borderStartEndRadius: 0,
-              }}
-            >
-              <CardContent>
-                <Box display="flex">
-                  <Box display="flex">
-                    <Image
-                      src={
-                        "https://res.cloudinary.com/ddmeptk5c/image/upload/q_auto:good/v1657313211/VIRTUS/trophy-svgrepo-com_floryz.svg"
-                      }
-                      width={250}
-                      height={180}
-                      alt="computational thinking"
-                    />
-                    <Box
-                      display="flex"
-                      flexDirection={"column"}
-                      justifyContent={"center"}
-                    >
-                      <Typography variant="h5" fontWeight={800}>
-                        Felicidades, name
-                      </Typography>
-                      <Typography variant="body1" fontSize={14}>
-                        Cada vez estas más cerca de completar la capacitación en
-                        pensamiento computacional.
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box sx={{ maxWidth: 170 }}>
-                    <RPaper sx={{ p: 2, position: "relative" }}>
-                      <Typography
-                        sx={{
-                          position: "absolute",
-                          top: "32%",
-                          color: "#10d46a",
-                          right: 0,
-                          left: "37%",
-                          margin: "auto",
-                        }}
-                        variant="h5"
-                        fontWeight={800}
-                      >
-                        88%
-                      </Typography>
-                      <Doughnut data={doughnoutData} options={OPTIONS} />
-                      <Typography
-                        variant="body1"
-                        color="text.primary"
-                        textAlign={"center"}
-                        sx={{ mt: 1 }}
-                      >
-                        Nivel actual
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        textAlign={"center"}
-                      >
-                        Básico
-                      </Typography>
-                    </RPaper>
-                  </Box>
-                </Box>
-              </CardContent>
-            </RCard>
-          </Box>
-          <RCard
-            sx={{
-              width: "40%",
-              color: "black",
-              backgroundImage: "linear-gradient(to right, #141e30, #243b55)",
-              p: 2,
-              boxSizing: "border-box",
-            }}
-          >
-            <CardHeader
-              title="Name, mira tu progreso"
-              subheader="September 14, 2016"
-              sx={{ color: "white" }}
-            />
-            <CustomizedSteppers />
-          </RCard>
-        </Box>
+        <Progress grades={grades} name={user.name} />
       </Box>
       <Box
         display={"flex"}
@@ -276,33 +290,53 @@ const Teacher = () => {
           >
             Dejaste tu progreso acá
           </Typography>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
+          {currentSubmodule ? (
+            <Card
+              sx={{
+                height: "fit-content",
+                backgroundColor: "#112233ff",
+                mb: 2,
+              }}
+            >
+              <CardHeader
+                avatar={
+                  <Chip
+                    label={`${
+                      currentSubmodule.exp + currentSubmodule.test.exp
+                    } exp`}
+                    icon={<StarIcon />}
+                    color="success"
+                    size="small"
+                  />
+                }
+                title={`${currentSubmodule.name}`}
+                subheader={`${currentSubmodule.time} minutos • ${currentSubmodule.modulo}`}
+                action={
+                  <NextLink
+                    href={`/home/learn/${currentSubmodule.to}`}
+                    passHref
+                  >
+                    <Tooltip title="Ir">
+                      <IconButton>
+                        <ArrowForwardIosIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </NextLink>
+                }
+              />
+            </Card>
+          ) : (
+            <Box>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                No tienes progresos guardados, comienza a aprender ya
+              </Typography>
+              <NextLink href={`/home/learn/1-introduction`} passHref>
+                <Button color="success" variant="contained" sx={{ mb: 1 }}>
+                  Comenzar
+                </Button>
+              </NextLink>
+            </Box>
+          )}
           <Typography
             variant="h6"
             fontWeight={400}
@@ -339,24 +373,22 @@ const Teacher = () => {
                 label="Módulo"
                 onChange={handleChangeSelect}
               >
-                <MenuItem value="">
-                  <em>None</em>
+                <MenuItem value="" disabled>
+                  <em>Seleccionar</em>
                 </MenuItem>
-                <MenuItem value={1}>Módulo 1 - name -</MenuItem>
-                <MenuItem value={2}>Módulo 2 - name -</MenuItem>
-                <MenuItem value={3}>Módulo 3 - name -</MenuItem>
+                <MenuItem value={"module1"}>Módulo 1</MenuItem>
+                <MenuItem value={"module2"}>Módulo 2</MenuItem>
+                <MenuItem value={"module3"}>Módulo 3</MenuItem>
               </Select>
             </FormControl>
-            <Box>
-              <Chart type="bar" data={data} />
-            </Box>
+            <Box>{data && <Chart type="bar" data={data} />}</Box>
           </Box>
         </Box>
         <Box sx={{ width: "50%" }}>
           <Typography variant="h5" fontWeight={800} sx={{ mb: 1 }}>
             Explorar módulos
           </Typography>
-          <ModuleStudy />
+          <ModuleStudy modulos={modulos} />
         </Box>
       </Box>
     </>

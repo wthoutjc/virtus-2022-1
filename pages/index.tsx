@@ -20,7 +20,15 @@ import { setLandingPosition } from "../reducers";
 // Auth
 import { requireNoAuth } from "../auth";
 
-const Home: NextPage = () => {
+// Database
+import { dbModulos } from "../database";
+import { IModulo } from "../interfaces";
+
+interface Props {
+  modulos: IModulo[];
+}
+
+const Home = ({ modulos }: Props) => {
   const dispatch = useAppDispatch();
 
   const ludicasRef = useRef<HTMLDivElement>(null);
@@ -49,7 +57,7 @@ const Home: NextPage = () => {
             <Nosotros />
           </Box>
           <Box ref={modulosRef} className="index__sub-container" id="modulos">
-            <Teoria />
+            <Teoria modulos={modulos} />
           </Box>
           <Box className="index__sub-container" id="footer">
             <Footer />
@@ -62,8 +70,9 @@ const Home: NextPage = () => {
 
 export const getServerSideProps: GetServerSideProps = requireNoAuth(
   async (_ctx) => {
+    const modulos = await dbModulos.getModulos();
     return {
-      props: {},
+      props: { modulos },
     };
   }
 );

@@ -19,9 +19,9 @@ export const checkUserEmailPassword = async (
     return null;
   }
 
-  const { _id, role, name } = user;
+  const { _id, role, name, grades, answers } = user;
 
-  return { _id, role, email: email.toLocaleLowerCase(), name };
+  return { _id, role, email: email.toLocaleLowerCase(), name, grades, answers };
 };
 
 export const OAuthToDbUser = async (OAuthEmail: string, OAuthName: string) => {
@@ -31,8 +31,8 @@ export const OAuthToDbUser = async (OAuthEmail: string, OAuthName: string) => {
 
   if (user) {
     await db.disconnect();
-    const { _id, name, email, role } = user;
-    return { _id, name, email, role };
+    const { _id, name, email, role, grades, answers } = user;
+    return { _id, name, email, role, grades, answers };
   }
 
   const newUser = new User({
@@ -44,6 +44,6 @@ export const OAuthToDbUser = async (OAuthEmail: string, OAuthName: string) => {
   await newUser.save();
   await db.disconnect();
 
-  const { _id, name, email, role } = newUser;
-  return { _id, name, email, role };
+  const { _id, name, email, role, grades, answers } = newUser;
+  return { _id, name, email, role, grades, answers };
 };

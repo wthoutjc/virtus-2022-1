@@ -1,23 +1,42 @@
+export interface IQuestion {
+  question: string;
+  answers: string[];
+  correct: number;
+}
+
 export interface ITest {
-  id: string;
+  _id?: string;
   name: string;
-  description: string;
   modulo: string;
+  exp: number;
+  questions: IQuestion[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ISubModulo {
-  id: string;
+  _id?: string;
   name: string;
+  to: string;
   description: string;
   modulo: string;
   exp: number;
   content: string;
+  bibliography: string;
+  test: ITest;
+  time: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IModulo {
-  id: string;
-  nombre: string;
+  _id?: string;
+  name: string;
   descripcion: string;
+  keyWords: string[];
+  goals: string[];
+  requirements: string[];
   content: ISubModulo[];
-  test: ITest;
+  createdAt?: string;
+  updatedAt?: string;
 }

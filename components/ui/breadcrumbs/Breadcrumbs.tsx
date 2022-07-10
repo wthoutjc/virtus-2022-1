@@ -7,12 +7,15 @@ import NextLink from "next/link";
 
 const BreadcrumbsC = () => {
   const [paths, setPaths] = useState<string[]>([]);
+  const [to, setTo] = useState<string[]>([]);
 
   const router = useRouter();
   const { asPath } = router;
 
   useMemo(() => {
-    setPaths(asPath.split("/").slice(1));
+    const calc = asPath.split("/").slice(1);
+    setPaths(calc);
+    setTo(calc.map((path, index) => calc.slice(0, index + 1).join("/")));
   }, [asPath]);
 
   return (
@@ -24,7 +27,7 @@ const BreadcrumbsC = () => {
               {capitalize(path)}
             </Typography>
           ) : (
-            <NextLink key={path} href={`/${path}`} passHref>
+            <NextLink key={path} href={`/${to[index]}`} passHref>
               <Link underline="hover" color="inherit">
                 {capitalize(path)}
               </Link>

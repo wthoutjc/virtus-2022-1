@@ -1,8 +1,11 @@
+import NextLink from "next/link";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Card,
+  CardContent,
   CardHeader,
   Chip,
   IconButton,
@@ -15,1084 +18,215 @@ import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import StarIcon from "@mui/icons-material/Star";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const ModuleStudy = () => {
+// Interfaces
+import { IModulo } from "../../interfaces";
+
+interface Props {
+  modulos: IModulo[];
+  context?: string;
+}
+
+const ModuleStudy = ({ modulos, context = "in-app" }: Props) => {
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
     };
+
+  if ((context = "in-app")) {
+    return (
+      <>
+        {modulos
+          ? modulos.map((modulo, index) => {
+              return (
+                <Accordion
+                  TransitionProps={{ unmountOnExit: true }}
+                  expanded={expanded === `panel${index + 1}`}
+                  onChange={handleChange(`panel${index + 1}`)}
+                  key={index}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls={`modulo${
+                      index + 1
+                    }-pensamiento-computacional`}
+                    id={`mod${index + 1}`}
+                  >
+                    <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                      Modulo {index + 1}
+                    </Typography>
+                    <Typography sx={{ color: "text.secondary" }}>
+                      {modulo.name}
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {modulo.content.map((content, index) => {
+                      return (
+                        <Card
+                          key={index}
+                          sx={{
+                            height: "fit-content",
+                            backgroundColor: "#112233ff",
+                            mb: 2,
+                          }}
+                        >
+                          <CardHeader
+                            avatar={
+                              <Chip
+                                label={`${content.exp} exp`}
+                                icon={<StarIcon />}
+                                color="success"
+                                size="small"
+                              />
+                            }
+                            title={`${content.name}`}
+                            subheader={`${content.time} min • Submódulo • ${
+                              index + 1
+                            } unidad`}
+                            action={
+                              <NextLink
+                                href={`/home/learn/${content.to}`}
+                                passHref
+                              >
+                                <Tooltip title="Ir">
+                                  <IconButton>
+                                    <ArrowForwardIosIcon />
+                                  </IconButton>
+                                </Tooltip>
+                              </NextLink>
+                            }
+                          />
+                        </Card>
+                      );
+                    })}
+                  </AccordionDetails>
+                </Accordion>
+              );
+            })
+          : "Loading..."}
+      </>
+    );
+  }
   return (
     <>
-      <Accordion
-        TransitionProps={{ unmountOnExit: true }}
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="modulo1-pensamiento-computacional"
-          id="mod1"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Modulo 1</Typography>
-          <Typography sx={{ color: "text.secondary" }}>Trata sobre</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
+      <Box className="index__teoriaAccordion">
+        <Box className="index__teoriaAccordion_container1">
+          {modulos
+            ? modulos.map((modulo, index) => {
+                return (
+                  <Accordion
+                    TransitionProps={{ unmountOnExit: true }}
+                    expanded={expanded === `panel${index + 1}`}
+                    onChange={handleChange(`panel${index + 1}`)}
+                    key={index}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls={`modulo${
+                        index + 1
+                      }-pensamiento-computacional`}
+                      id={`mod${index + 1}`}
+                    >
+                      <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                        Modulo {index + 1}
+                      </Typography>
+                      <Typography sx={{ color: "text.secondary" }}>
+                        {modulo.name}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {modulo.content.map((content, index) => {
+                        return (
+                          <Card
+                            key={index}
+                            sx={{
+                              height: "fit-content",
+                              backgroundColor: "#112233ff",
+                              mb: 2,
+                            }}
+                          >
+                            <CardHeader
+                              avatar={
+                                <Chip
+                                  label={`${content.exp} exp`}
+                                  icon={<StarIcon />}
+                                  color="success"
+                                  size="small"
+                                />
+                              }
+                              title={`${content.name}`}
+                              subheader={`${content.time} min • Submódulo • ${
+                                index + 1
+                              } unidad`}
+                              action={
+                                <NextLink
+                                  href={`/home/learn/${content.to}`}
+                                  passHref
+                                >
+                                  <Tooltip title="Ir">
+                                    <IconButton>
+                                      <ArrowForwardIosIcon />
+                                    </IconButton>
+                                  </Tooltip>
+                                </NextLink>
+                              }
+                            />
+                          </Card>
+                        );
+                      })}
+                    </AccordionDetails>
+                  </Accordion>
+                );
+              })
+            : "Loading..."}
+        </Box>
+        <Box className="index__teoriaAccordion_container2">
           <Card
             sx={{
               height: "fit-content",
               backgroundColor: "#112233ff",
-              mb: 2,
             }}
           >
             <CardHeader
               avatar={
                 <Chip
-                  label="120xp"
+                  label="1000xp"
                   icon={<StarIcon />}
                   color="success"
                   size="small"
                 />
               }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
+              title="Módulo X"
+              subheader="120 min. • Módulo • n Unidades"
               action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
+                <Tooltip title="Opciones">
+                  <IconButton>
+                    <MoreVertIcon />
                   </IconButton>
                 </Tooltip>
               }
             />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                Nombre del tema
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                textAlign={"justify"}
+              >
+                Descripción del tema, Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Minima, neque atque? Aspernatur cumque nihil
+                corrupti quibusdam, voluptates dolorum ipsam vitae! Natus
+                tenetur labore minus repellat veniam ducimus ab cum libero.
+              </Typography>
+            </CardContent>
           </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        TransitionProps={{ unmountOnExit: true }}
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="modulo1-pensamiento-computacional"
-          id="mod1"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Modulo 2</Typography>
-          <Typography sx={{ color: "text.secondary" }}>Trata sobre</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        TransitionProps={{ unmountOnExit: true }}
-        expanded={expanded === "panel3"}
-        onChange={handleChange("panel3")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="modulo1-pensamiento-computacional"
-          id="mod1"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Modulo 3</Typography>
-          <Typography sx={{ color: "text.secondary" }}>Trata sobre</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        TransitionProps={{ unmountOnExit: true }}
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="modulo1-pensamiento-computacional"
-          id="mod1"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Modulo 4</Typography>
-          <Typography sx={{ color: "text.secondary" }}>Trata sobre</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        TransitionProps={{ unmountOnExit: true }}
-        expanded={expanded === "panel5"}
-        onChange={handleChange("panel5")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="modulo1-pensamiento-computacional"
-          id="mod1"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Modulo 5</Typography>
-          <Typography sx={{ color: "text.secondary" }}>Trata sobre</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        TransitionProps={{ unmountOnExit: true }}
-        expanded={expanded === "panel6"}
-        onChange={handleChange("panel6")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="modulo1-pensamiento-computacional"
-          id="mod1"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Modulo 6</Typography>
-          <Typography sx={{ color: "text.secondary" }}>Trata sobre</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-          <Card
-            sx={{
-              height: "fit-content",
-              backgroundColor: "#112233ff",
-              mb: 2,
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Chip
-                  label="120xp"
-                  icon={<StarIcon />}
-                  color="success"
-                  size="small"
-                />
-              }
-              title="Submodulo X"
-              subheader="20 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Ir">
-                  <IconButton size="small">
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-          </Card>
-        </AccordionDetails>
-      </Accordion>
+        </Box>
+      </Box>
     </>
   );
 };

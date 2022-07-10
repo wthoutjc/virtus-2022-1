@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { GetStaticProps } from "next";
 import { Layout } from "../../components/layout";
 
 // Components
@@ -12,13 +12,16 @@ import { Hierarchy } from "../../enum";
 import { useAppSelector } from "../../hooks";
 
 //Interface
-import { DBDataUsers } from "../../interfaces";
+import { IModulo } from "../../interfaces";
+
+// Database
+import { dbModulos } from "../../database";
 
 interface Props {
-  data: DBDataUsers[];
+  modulos: IModulo[];
 }
 
-const HomePage = ({ data }: Props) => {
+const HomePage = ({ modulos }: Props) => {
   const { user } = useAppSelector((state) => state.auth);
 
   const { role } = user;
@@ -27,10 +30,20 @@ const HomePage = ({ data }: Props) => {
     <Layout title="Welcome - App">
       <ConnectedLayout>
         {role === Hierarchy.admin && <Admin />}
-        {role === Hierarchy.teacher && <Teacher />}
+        {role === Hierarchy.teacher && <Teacher modulos={modulos} />}
       </ConnectedLayout>
     </Layout>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const modulos = await dbModulos.getModulos();
+
+  return {
+    props: {
+      modulos,
+    },
+  };
 };
 
 export default HomePage;
