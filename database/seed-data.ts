@@ -28,6 +28,7 @@ interface SeedUser {
   email: string;
   password: string;
   role: "admin" | "teacher";
+  exp?: number;
   grades?: SeedGrade;
   answers?: SeedAnswers;
 }
@@ -50,8 +51,9 @@ export const initialData: SeedData = {
       email: "teacher1@virtus-training.com",
       password: bcrypt.hashSync("123456"),
       role: "teacher",
+      exp: 1200,
       grades: {
-        module1: [1, 2, 3, 4, 5, 5],
+        module1: [5, 5, 5, 5, 5, 5],
       },
       answers: {
         module1: [[1, 2, 3]],
@@ -62,9 +64,10 @@ export const initialData: SeedData = {
       email: "teacher2@virtus-training.com",
       password: bcrypt.hashSync("123456"),
       role: "teacher",
+      exp: 1600,
       grades: {
-        module1: [1, 2, 3, 4, 5, 5],
-        module2: [1, 2],
+        module1: [5, 5, 5, 5, 5, 5],
+        module2: [5, 5],
       },
       answers: {
         module1: [
@@ -86,10 +89,11 @@ export const initialData: SeedData = {
       email: "teacher3@virtus-training.com",
       password: bcrypt.hashSync("123456"),
       role: "teacher",
+      exp: 3400,
       grades: {
-        module1: [1, 2, 3, 4, 5, 5],
-        module2: [1, 2, 3, 4],
-        module3: [1, 2, 3, 4, 5, 5, 5],
+        module1: [5, 5, 5, 5, 5, 5],
+        module2: [5, 5, 5, 5],
+        module3: [5, 5, 5, 5, 5, 5, 5],
       },
       answers: {
         module1: [
@@ -122,10 +126,11 @@ export const initialData: SeedData = {
       email: "teacher4@virtus-training.com",
       password: bcrypt.hashSync("123456"),
       role: "teacher",
+      exp: 3000,
       grades: {
-        module1: [1, 2, 3, 4, 5, 5],
-        module2: [1, 2, 3, 4],
-        module3: [1, 2, 3, 4, 5],
+        module1: [5, 5, 5, 5, 5, 5],
+        module2: [5, 5, 5, 5],
+        module3: [5, 5, 5, 5, 5],
       },
       answers: {
         module1: [
@@ -150,6 +155,15 @@ export const initialData: SeedData = {
           [1, 2, 3],
         ],
       },
+    },
+    {
+      name: "Teacher 5",
+      email: "teacher5@virtus-training.com",
+      password: bcrypt.hashSync("123456"),
+      role: "teacher",
+      exp: 0,
+      grades: {},
+      answers: {},
     },
   ],
   modulos: [

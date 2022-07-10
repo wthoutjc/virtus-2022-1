@@ -18,10 +18,9 @@ import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import StarIcon from "@mui/icons-material/Star";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 // Interfaces
-import { IModulo } from "../../interfaces";
+import { IModulo, ISubModulo } from "../../interfaces";
 
 interface Props {
   modulos: IModulo[];
@@ -36,7 +35,15 @@ const ModuleStudy = ({ modulos, context = "in-app" }: Props) => {
       setExpanded(newExpanded ? panel : false);
     };
 
-  if ((context = "in-app")) {
+  const [currentSubmodule, setCurrentSubmodule] = useState<ISubModulo>(
+    modulos[0].content[0]
+  );
+
+  const handleClick = (index: number, index2: number) => {
+    setCurrentSubmodule(modulos[index].content[index2]);
+  };
+
+  if (context === "in-app") {
     return (
       <>
         {modulos
@@ -138,10 +145,10 @@ const ModuleStudy = ({ modulos, context = "in-app" }: Props) => {
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      {modulo.content.map((content, index) => {
+                      {modulo.content.map((content, index2) => {
                         return (
                           <Card
-                            key={index}
+                            key={index2}
                             sx={{
                               height: "fit-content",
                               backgroundColor: "#112233ff",
@@ -159,19 +166,16 @@ const ModuleStudy = ({ modulos, context = "in-app" }: Props) => {
                               }
                               title={`${content.name}`}
                               subheader={`${content.time} min • Submódulo • ${
-                                index + 1
+                                index2 + 1
                               } unidad`}
                               action={
-                                <NextLink
-                                  href={`/home/learn/${content.to}`}
-                                  passHref
-                                >
-                                  <Tooltip title="Ir">
-                                    <IconButton>
-                                      <ArrowForwardIosIcon />
-                                    </IconButton>
-                                  </Tooltip>
-                                </NextLink>
+                                <Tooltip title="Explorar">
+                                  <IconButton
+                                    onClick={() => handleClick(index, index2)}
+                                  >
+                                    <ArrowForwardIosIcon />
+                                  </IconButton>
+                                </Tooltip>
                               }
                             />
                           </Card>
@@ -193,35 +197,27 @@ const ModuleStudy = ({ modulos, context = "in-app" }: Props) => {
             <CardHeader
               avatar={
                 <Chip
-                  label="1000xp"
+                  label={`${
+                    currentSubmodule.exp + currentSubmodule.test.exp
+                  } exp`}
                   icon={<StarIcon />}
                   color="success"
                   size="small"
                 />
               }
-              title="Módulo X"
-              subheader="120 min. • Módulo • n Unidades"
-              action={
-                <Tooltip title="Opciones">
-                  <IconButton>
-                    <MoreVertIcon />
-                  </IconButton>
-                </Tooltip>
-              }
+              title={`${currentSubmodule.name}`}
+              subheader={`${currentSubmodule.time} min • ${currentSubmodule.modulo} • Submódulo`}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                Nombre del tema
+                {currentSubmodule.name}
               </Typography>
               <Typography
                 variant="body2"
                 color="text.secondary"
                 textAlign={"justify"}
               >
-                Descripción del tema, Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Minima, neque atque? Aspernatur cumque nihil
-                corrupti quibusdam, voluptates dolorum ipsam vitae! Natus
-                tenetur labore minus repellat veniam ducimus ab cum libero.
+                {currentSubmodule.description}
               </Typography>
             </CardContent>
           </Card>

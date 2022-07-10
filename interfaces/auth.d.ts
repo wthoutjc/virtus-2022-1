@@ -9,6 +9,7 @@ export interface IAuth {
   email: string;
   name: string;
   role: Hierarchy | null;
+  exp: number;
   grades?: IGrade;
   answers?: IAnswers;
 }

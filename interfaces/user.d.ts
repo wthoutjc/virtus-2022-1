@@ -24,6 +24,7 @@ export interface IUser {
   email: string;
   password?: string;
   role: string;
+  exp: number;
   createdAt: string;
   updatedAt: string;
   grades?: IGrade;

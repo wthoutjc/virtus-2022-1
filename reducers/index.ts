@@ -6,3 +6,6 @@ export * from "./UXReducer"
 
 export {default as uiReducer} from "./UIReducer"
 export * from "./UIReducer"
+
+export {default as studyReducer} from "./studyReducer"
+export * from "./studyReducer"

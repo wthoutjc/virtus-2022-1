@@ -52,7 +52,7 @@ import StarIcon from "@mui/icons-material/Star";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 // Interfaces
-import { IModulo, ISubModulo } from "../../../interfaces";
+import { ISubModulo } from "../../../interfaces";
 
 // Redux
 import { useAppSelector } from "../../../hooks";
@@ -63,14 +63,12 @@ const StyledDivider = styled((props: DividerProps) => {
   backgroundColor: "#c8d6e5",
 }));
 
-interface Props {
-  modulos: IModulo[];
-}
-
 type TypeRange = "Básico" | "Intermedio" | "Avanzado" | null;
 
-const Teacher = ({ modulos }: Props) => {
+const Teacher = () => {
   const { user } = useAppSelector((state) => state.auth);
+  const { modulos } = useAppSelector((state) => state.study);
+
   const [currentSubmodule, setCurrentSubmodule] = useState<ISubModulo | null>(
     null
   );

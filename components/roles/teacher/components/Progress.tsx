@@ -200,7 +200,7 @@ const Progress = ({ grades, name }: Props) => {
                       : progress > 90 && progress < 100
                       ? "Estás en la recta final de este módulo, sigue así para obtener el resultado final y cerciorarte de que manejas los conceptos del pensamiento computacional."
                       : progress === 100 &&
-                        "Has completado con esté módulo, sigue avanzando o en caso de haber completado todos los módulos próximamente añadiremos un sistema de certificación, mantente pendiente :)."}
+                        "Has completado con éxito esté módulo, sigue avanzando o en caso de haber completado todos los módulos próximamente añadiremos un sistema de certificación, mantente pendiente :)"}
                   </Typography>
                 </Box>
               </Box>
@@ -227,7 +227,7 @@ const Progress = ({ grades, name }: Props) => {
                     textAlign={"center"}
                     sx={{ mt: 1 }}
                   >
-                    Nivel actual
+                    Módulo actual
                   </Typography>
                   <Typography
                     variant="body2"

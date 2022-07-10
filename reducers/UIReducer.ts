@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 //Interfaces
-import { INotification, UI, SideBarData } from "../interfaces";
+import { INotification, UI } from "../interfaces";
 import { AppState } from "../store";
 
 const initialState: UI = {

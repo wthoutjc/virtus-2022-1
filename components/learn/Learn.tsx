@@ -9,17 +9,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { IModulo } from "../../interfaces";
 
 // Icons
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import StarIcon from "@mui/icons-material/Star";
 
-interface Props {
-  modulos: IModulo[];
-}
+// Redux
+import { useAppSelector } from "../../hooks";
 
-const Learn = ({ modulos }: Props) => {
+const Learn = () => {
+  const { modulos } = useAppSelector((state) => state.study);
   return (
     <>
       {modulos
@@ -46,7 +45,7 @@ const Learn = ({ modulos }: Props) => {
 
                   <Chip
                     label={`${modulo.content
-                      .map((data) => data.exp)
+                      .map((data) => data.exp + data.test.exp)
                       .reduce((prev, curr) => prev + curr)} exp`}
                     icon={<StarIcon />}
                     color="success"
@@ -90,7 +89,10 @@ const Learn = ({ modulos }: Props) => {
                 </ul>
 
                 <Box sx={{ mb: 1 }}>
-                  <NextLink href={`/home/learn/${modulo.content[0].to}`} passHref>
+                  <NextLink
+                    href={`/home/learn/${modulo.content[0].to}`}
+                    passHref
+                  >
                     <Button
                       variant="contained"
                       size="small"

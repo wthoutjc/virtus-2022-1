@@ -1,35 +1,16 @@
-import { GetStaticProps } from "next";
 import { Layout, ConnectedLayout } from "../../../components/layout";
-import { IModulo } from "../../../interfaces";
 
 // Components
 import { Learn } from "../../../components/learn";
 
-// Database
-import { dbModulos } from "../../../database";
-
-interface Props {
-  modulos: IModulo[];
-}
-
-const LearnPage = ({ modulos }: Props) => {
+const LearnPage = () => {
   return (
     <Layout>
       <ConnectedLayout>
-        <Learn modulos={modulos} />
+        <Learn />
       </ConnectedLayout>
     </Layout>
   );
-};
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const modulos = await dbModulos.getModulos();
-
-  return {
-    props: {
-      modulos,
-    },
-  };
 };
 
 export default LearnPage;

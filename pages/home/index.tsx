@@ -9,28 +9,37 @@ import { ConnectedLayout } from "../../components/layout";
 import { Hierarchy } from "../../enum";
 
 // Redux
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { setModulos } from "../../reducers";
 
 //Interface
 import { IModulo } from "../../interfaces";
 
 // Database
 import { dbModulos } from "../../database";
+import { useEffect } from "react";
 
 interface Props {
   modulos: IModulo[];
 }
 
 const HomePage = ({ modulos }: Props) => {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
 
   const { role } = user;
+
+  useEffect(() => {
+    if (modulos) {
+      dispatch(setModulos(modulos));
+    }
+  }, [modulos, dispatch]);
 
   return (
     <Layout title="Welcome - App">
       <ConnectedLayout>
         {role === Hierarchy.admin && <Admin />}
-        {role === Hierarchy.teacher && <Teacher modulos={modulos} />}
+        {role === Hierarchy.teacher && <Teacher />}
       </ConnectedLayout>
     </Layout>
   );
