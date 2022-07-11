@@ -1,7 +1,7 @@
 import { Hierarchy } from "../enum";
 
 // Interfaces
-import { IGrade, IAnswers } from "./user";
+import { IGrade } from "./user";
 
 export interface IAuth {
   logged?: boolean;
@@ -9,7 +9,7 @@ export interface IAuth {
   email: string;
   name: string;
   role: Hierarchy | null;
-  exp: number;
+  exp?: number;
   grades?: IGrade;
-  answers?: IAnswers;
+  answers: Array<Array<number[]>> | null;
 }

@@ -1,17 +1,3 @@
-export interface IAnswers {
-  module1: [number[], number[], number[], number[], number[], number[]];
-  module2: [number[], number[], number[], number[]];
-  module3: [
-    number[],
-    number[],
-    number[],
-    number[],
-    number[],
-    number[],
-    number[]
-  ];
-}
-
 export interface IGrade {
   module1: number[];
   module2: number[];
@@ -28,5 +14,5 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
   grades?: IGrade;
-  answers?: IAnswers;
+  answers?: Array<number[]>
 }

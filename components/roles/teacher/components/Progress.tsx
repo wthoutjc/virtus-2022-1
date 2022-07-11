@@ -190,7 +190,7 @@ const Progress = ({ grades, name }: Props) => {
                   </Typography>
                   <Typography variant="body1" fontSize={14}>
                     {progress === 0
-                      ? `Qué esperas para adentrarte en esta aplicación que tiene como principal objetivo darte a conocer todos los conceptos necesarios para que entiendas de una vez el pensamiento computacional.`
+                      ? `Qué esperas para adentrarte en esta aplicación que tiene como principal objetivo darte a conocer todos los conceptos necesarios para que entiendas el pensamiento computacional.`
                       : progress > 0 && progress <= 30
                       ? `Ánimo ${name}, cada momento que estés en nuestra app es un paso agigantado para entrar en el mundo del pensamiento computacional.`
                       : progress > 30 && progress <= 60

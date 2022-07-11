@@ -6,18 +6,14 @@ import { AppState } from "../store";
 
 const initialState: IStudy = {
   modulos: [],
-  currentModulo: null,
   currentSubModulo: null,
   currentTest: null,
+  userAnswers: null,
 };
 
 // Actions
 interface SetModulos {
   payload: IModulo[];
-}
-
-interface SetCurrentModulo {
-  payload: IModulo;
 }
 
 interface SetCurrentSubModulo {
@@ -28,6 +24,12 @@ interface SetCurrentTest {
   payload: ITest;
 }
 
+interface SetUserAnswers {
+  payload: {
+    [key: string]: number;
+  } | null;
+}
+
 const studySlice = createSlice({
   name: "[STUDY]",
   initialState,
@@ -35,14 +37,14 @@ const studySlice = createSlice({
     setModulos: (state: IStudy, action: SetModulos) => {
       state.modulos = action.payload;
     },
-    setCurrentModulo: (state: IStudy, action: SetCurrentModulo) => {
-      state.currentModulo = action.payload;
-    },
     setCurrentSubModulo: (state: IStudy, action: SetCurrentSubModulo) => {
       state.currentSubModulo = action.payload;
     },
     setCurrentTest: (state: IStudy, action: SetCurrentTest) => {
       state.currentTest = action.payload;
+    },
+    setUserAnswers: (state: IStudy, action: SetUserAnswers) => {
+      state.userAnswers = action.payload;
     },
   },
 });
@@ -52,9 +54,9 @@ export { studySlice };
 // Actions
 export const {
   setModulos,
-  setCurrentModulo,
   setCurrentSubModulo,
   setCurrentTest,
+  setUserAnswers,
 } = studySlice.actions;
 
 // Select to access to the store

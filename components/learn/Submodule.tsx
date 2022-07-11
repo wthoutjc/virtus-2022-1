@@ -13,19 +13,49 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 // Components
 import { Test } from "../../components/study";
 
+// Redux
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import {
+  setCurrentSubModulo,
+  setCurrentTest,
+  setUserAnswers,
+} from "../../reducers";
+
 interface Props {
   id: string;
   modulo: IModulo;
 }
 
 const Submodule = ({ modulo, id }: Props) => {
-  const [submodule, setSubmodule] = useState<ISubModulo | null>(null);
+  const dispatch = useAppDispatch();
+  const { currentSubModulo } = useAppSelector((state) => state.study);
+
   const [nextSubmodule, setSubmoduleNext] = useState<ISubModulo | null>(null);
   const [beforeSubmodule, setSubmoduleBefore] = useState<ISubModulo | null>(
     null
   );
 
+  const { user } = useAppSelector((state) => state.auth);
+  const { answers } = user;
+
+  const [subUserModuleAnswers, setSubUserModuleAnswers] = useState<
+    number[] | null
+  >(null);
+
   useEffect(() => {
+    const currentIndexModule = Number(id[0]) - 1;
+
+    if (answers) {
+      setSubUserModuleAnswers(
+        answers[currentIndexModule][
+          modulo.content.findIndex((data) => data.to === id)
+        ]
+      );
+    }
+  }, [answers, id, modulo]);
+
+  useEffect(() => {
+    const payload = modulo.content.find((data) => data.to === id)!;
     setSubmoduleNext(
       modulo.content[modulo.content.findIndex((data) => data.to === id) + 1] ||
         null
@@ -34,12 +64,19 @@ const Submodule = ({ modulo, id }: Props) => {
       modulo.content[modulo.content.findIndex((data) => data.to === id) - 1] ||
         null
     );
-    setSubmodule(modulo.content.find((data) => data.to === id) || null);
-  }, [modulo, id]);
+    dispatch(setCurrentSubModulo(payload));
+  }, [modulo, id, dispatch]);
+
+  useEffect(() => {
+    if (currentSubModulo) {
+      dispatch(setCurrentTest(currentSubModulo.test));
+      dispatch(setUserAnswers(null));
+    }
+  }, [dispatch, currentSubModulo]);
 
   return (
     <Box sx={{ p: 2 }}>
-      {submodule ? (
+      {currentSubModulo ? (
         <>
           <Box display="flex" justifyContent={"space-between"} sx={{ mb: 2 }}>
             {beforeSubmodule && (
@@ -55,7 +92,7 @@ const Submodule = ({ modulo, id }: Props) => {
               </NextLink>
             )}
             <Typography variant="h5" fontWeight={600}>
-              {submodule.name}
+              {currentSubModulo.name}
             </Typography>
             {nextSubmodule && (
               <NextLink href={nextSubmodule.to} passHref>
@@ -72,7 +109,7 @@ const Submodule = ({ modulo, id }: Props) => {
           </Box>
           <Box display="flex">
             <Chip
-              label={`${submodule.exp} exp`}
+              label={`${currentSubModulo.exp} exp`}
               icon={<StarIcon />}
               color="success"
               size="small"
@@ -80,13 +117,13 @@ const Submodule = ({ modulo, id }: Props) => {
             />
             <Box>
               <Typography variant="body1" sx={{ mb: 1 }}>
-                • {submodule.time} minutos
+                • {currentSubModulo.time} minutos
               </Typography>
             </Box>
           </Box>
           <Box>Acá va el contenido del submódulo</Box>
           <Box>
-            <Test test={submodule.test} />
+            <Test answers={subUserModuleAnswers} />
             <Button color="success" variant="contained">
               Comprobar respuestas
             </Button>

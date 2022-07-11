@@ -9,20 +9,6 @@ interface SeedGrade {
   module3?: number[];
 }
 
-interface SeedAnswers {
-  module1?: [number[]?, number[]?, number[]?, number[]?, number[]?, number[]?];
-  module2?: [number[]?, number[]?, number[]?, number[]?];
-  module3?: [
-    number[]?,
-    number[]?,
-    number[]?,
-    number[]?,
-    number[]?,
-    number[]?,
-    number[]?
-  ];
-}
-
 interface SeedUser {
   name: string;
   email: string;
@@ -30,7 +16,7 @@ interface SeedUser {
   role: "admin" | "teacher";
   exp?: number;
   grades?: SeedGrade;
-  answers?: SeedAnswers;
+  answers?: Array<Array<number[]>>;
 }
 
 interface SeedData {
@@ -55,9 +41,16 @@ export const initialData: SeedData = {
       grades: {
         module1: [5, 5, 5, 5, 5, 5],
       },
-      answers: {
-        module1: [[1, 2, 3]],
-      },
+      answers: [
+        [
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+        ],
+      ],
     },
     {
       name: "Teacher 2",
@@ -69,8 +62,8 @@ export const initialData: SeedData = {
         module1: [5, 5, 5, 5, 5, 5],
         module2: [5, 5],
       },
-      answers: {
-        module1: [
+      answers: [
+        [
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
@@ -78,11 +71,11 @@ export const initialData: SeedData = {
           [1, 2, 3],
           [1, 2, 3],
         ],
-        module2: [
+        [
           [1, 2, 3],
           [1, 2, 3],
         ],
-      },
+      ],
     },
     {
       name: "Teacher 3",
@@ -95,8 +88,8 @@ export const initialData: SeedData = {
         module2: [5, 5, 5, 5],
         module3: [5, 5, 5, 5, 5, 5, 5],
       },
-      answers: {
-        module1: [
+      answers: [
+        [
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
@@ -104,13 +97,13 @@ export const initialData: SeedData = {
           [1, 2, 3],
           [1, 2, 3],
         ],
-        module2: [
+        [
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
         ],
-        module3: [
+        [
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
@@ -119,7 +112,7 @@ export const initialData: SeedData = {
           [1, 2, 3],
           [1, 2, 3],
         ],
-      },
+      ],
     },
     {
       name: "Teacher 4",
@@ -132,8 +125,8 @@ export const initialData: SeedData = {
         module2: [5, 5, 5, 5],
         module3: [5, 5, 5, 5, 5],
       },
-      answers: {
-        module1: [
+      answers: [
+        [
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
@@ -141,20 +134,20 @@ export const initialData: SeedData = {
           [1, 2, 3],
           [1, 2, 3],
         ],
-        module2: [
+        [
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
         ],
-        module3: [
+        [
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
           [1, 2, 3],
         ],
-      },
+      ],
     },
     {
       name: "Teacher 5",
@@ -163,7 +156,7 @@ export const initialData: SeedData = {
       role: "teacher",
       exp: 0,
       grades: {},
-      answers: {},
+      answers: [],
     },
   ],
   modulos: [

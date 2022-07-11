@@ -20,7 +20,7 @@ const userSchema = new Schema(
       default: "teacher",
     },
     grades: { type: Object, default: {}, required: false },
-    answers: { type: Object, default: {}, required: false },
+    answers: { type: Array, default: [], required: false },
   },
   {
     timestamps: true,
