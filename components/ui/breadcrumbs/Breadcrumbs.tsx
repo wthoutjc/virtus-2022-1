@@ -19,18 +19,16 @@ const BreadcrumbsC = () => {
   }, [asPath]);
 
   return (
-    <Box sx={{ padding: 1, boxSizing: "border-box" }}>
-      <Breadcrumbs sx={{ color: "#001122" }}>
+    <Box>
+      <Breadcrumbs>
         {paths?.map((path, index) =>
           index + 1 === paths.length ? (
-            <Typography key={path} color="inherit" fontWeight={600}>
+            <Typography key={path} fontWeight={600}>
               {capitalize(path)}
             </Typography>
           ) : (
             <NextLink key={path} href={`/${to[index]}`} passHref>
-              <Link underline="hover" color="inherit">
-                {capitalize(path)}
-              </Link>
+              <Link underline="hover">{capitalize(path)}</Link>
             </NextLink>
           )
         )}

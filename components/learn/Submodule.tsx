@@ -45,7 +45,7 @@ const Submodule = ({ modulo, id }: Props) => {
   useEffect(() => {
     const currentIndexModule = Number(id[0]) - 1;
 
-    if (answers) {
+    if (answers && answers.length > 0) {
       setSubUserModuleAnswers(
         answers[currentIndexModule][
           modulo.content.findIndex((data) => data.to === id)
@@ -121,7 +121,11 @@ const Submodule = ({ modulo, id }: Props) => {
               </Typography>
             </Box>
           </Box>
-          <Box>Acá va el contenido del submódulo</Box>
+          <Box>
+            <Typography variant="body2" textAlign={"justify"}>
+              {currentSubModulo.content}
+            </Typography>
+          </Box>
           <Box>
             <Test answers={subUserModuleAnswers} />
             <Button color="success" variant="contained">
